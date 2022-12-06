@@ -154,4 +154,4 @@ SIMPLE_JWT = {
 try:
     from drf_jwt_backend.local_settings import *
 except ImportError:
-    pass
+    raise ImportError("local settings not found")
