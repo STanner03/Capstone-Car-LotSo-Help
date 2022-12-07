@@ -1,5 +1,5 @@
 from django.urls import path, include
-from make import views
+from models import views
 
 urlpatterns = [
     path('add/', views.create_make),
