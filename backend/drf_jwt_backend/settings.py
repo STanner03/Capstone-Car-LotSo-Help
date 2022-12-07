@@ -38,9 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'authentication.apps.AuthenticationConfig',
     'corsheaders',
-    'cars.apps.CarsConfig'  # This app is for example use only
+    'cars.apps.CarsConfig',  # This app is for example use only
+    'vehicle',
+    'fill_up_records',
+    'maintenance_records',
+    'make',
+    'model'
 ]
 
 MIDDLEWARE = [
