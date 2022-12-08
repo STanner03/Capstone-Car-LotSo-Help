@@ -9,6 +9,7 @@ from .serializers import ModelSerializer
 
 # Create your views here.
 
+
 @api_view(['Get'])
 @permission_classes([AllowAny])
 def get_all_models(request):
@@ -17,25 +18,32 @@ def get_all_models(request):
     return Response(serializer.data)
 
 
+@api_view(['Get'])
+@permission_classes([AllowAny])
+def get_all_models_per_make(request, mpk):
+    print("mpk", mpk)
+    models = Model.objects.filter(make_id=mpk)
+    serializer = ModelSerializer(models, many=True)
+    return Response(serializer.data)
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def create_model(request):
-    if request.method == 'POST':
-        serializer = ModelSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+def create_model(request, mpk):
+    serializer = ModelSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save(make_id=mpk)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def update_model(request, pk):
+def update_model(request, mpk, pk):
     model = get_object_or_404(Model, pk=pk)
     if request.method == 'PUT':
         serializer = ModelSerializer(model, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
+        serializer.save(make_id=mpk)
         return Response(serializer.data)
     elif request.method == 'DELETE':
         model.delete()

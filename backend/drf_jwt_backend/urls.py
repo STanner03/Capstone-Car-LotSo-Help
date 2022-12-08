@@ -20,9 +20,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('authentication.urls')),
     path('api/cars/', include('cars.urls')),
-    path('api/fillup/', include('fill_up_records.urls')),
-    path('api/maintenance/', include('maintenance_records.urls')),
+    # path('api/fillup/', include('fill_up_records.urls')),
+    # path('api/maintenance/', include('maintenance_records.urls')),
     path('api/make/', include('make.urls')),
-    path('api/model/', include('model.urls')),
-    path('api/vehicle/', include('vehicle.urls')),
+    # path('api/model/', include('model.urls')),
+    # path('api/vehicle/', include('vehicle.urls')),
 ]

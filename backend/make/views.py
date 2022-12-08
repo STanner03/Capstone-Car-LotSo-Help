@@ -13,7 +13,6 @@ from .serializers import MakeSerializer
 @api_view(['Get'])
 @permission_classes([AllowAny])
 def get_all_makes(request):
-    print(request.user)
     makes = Make.objects.all()
     serializer = MakeSerializer(makes, many=True)
     return Response(serializer.data)
@@ -22,7 +21,6 @@ def get_all_makes(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_make(request):
-    print("User's Post", request.user)
     serializer = MakeSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
@@ -37,7 +35,6 @@ def update_make(request, pk):
         serializer = MakeSerializer(make, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        print("PUT Serializer", serializer)
         return Response(serializer.data)
     elif request.method == 'DELETE':
         make.delete()

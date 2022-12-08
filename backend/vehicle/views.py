@@ -9,16 +9,33 @@ from .serializers import VehicleSerializer
 
 # Create your views here.
 
-# @api_view(['Get'])
-# @permission_classes([AllowAny])
-# def get_all_Vehicles():
+@api_view(['Get'])
+@permission_classes([AllowAny])
+def get_all_vehicles(request, mpk, modpk):
+    print("mpk", mpk)
+    vehicles = Vehicle.objects.filter(model_id=modpk)
+    serializer = VehicleSerializer(vehicles, many=True)
+    return Response(serializer.data)
 
 
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def create_Vehicle():
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_vehicle(request, mpk, modpk):
+    serializer = VehicleSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save(user_id=request.user.id, make_id=mpk, model_id=modpk)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# @api_view(['PUT', 'DELETE'])
-# @permission_classes([IsAuthenticated])
-# def update_Vehicle():
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def update_vehicle(request, mpk, modpk, vpk):
+    vehicle = get_object_or_404(Vehicle, pk=vpk)
+    if request.method == 'PUT':
+        serializer = VehicleSerializer(vehicle, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user_id=request.user.id, make_id=mpk, model_id=modpk)
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        vehicle.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
