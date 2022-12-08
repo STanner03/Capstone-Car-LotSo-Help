@@ -12,7 +12,9 @@ from .serializers import VehicleSerializer
 @api_view(['Get'])
 @permission_classes([AllowAny])
 def get_all_vehicles(request, mpk, modpk):
-    print("mpk", mpk)
+
+    print("mpk", mpk, "modpk", modpk)
+
     vehicles = Vehicle.objects.filter(model_id=modpk)
     serializer = VehicleSerializer(vehicles, many=True)
     return Response(serializer.data)
@@ -29,8 +31,8 @@ def create_vehicle(request, mpk, modpk):
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def update_vehicle(request, mpk, modpk, vpk):
-    vehicle = get_object_or_404(Vehicle, pk=vpk)
+def update_vehicle(request, mpk, modpk, pk):
+    vehicle = get_object_or_404(Vehicle, pk=pk)
     if request.method == 'PUT':
         serializer = VehicleSerializer(vehicle, data=request.data)
         serializer.is_valid(raise_exception=True)

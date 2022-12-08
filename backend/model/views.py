@@ -12,7 +12,7 @@ from .serializers import ModelSerializer
 
 @api_view(['Get'])
 @permission_classes([AllowAny])
-def get_all_models(request):
+def get_all_models(request, mpk):
     models = Model.objects.all()
     serializer = ModelSerializer(models, many=True)
     return Response(serializer.data)
