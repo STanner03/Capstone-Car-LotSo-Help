@@ -9,11 +9,12 @@ li {
 }
 
 .navBar {
-  background: steelblue;
+  background: rgb(0, 0, 0);
   box-shadow: 4px 2px 5px gray;
   color: white;
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
+  
 }
 
 .navBar button {
@@ -21,6 +22,7 @@ li {
   border: 2px solid white;
   color: white;
   padding: 0.4rem 0.5rem;
+  border-radius: 10px;
 }
 
 .navBar button:hover {

@@ -7,34 +7,40 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Maintenance
 from .serializers import MaintenanceSerializer
 
+# Create your views here.
+
+
 @api_view(['Get'])
 @permission_classes([AllowAny])
-def get_all_maintenance_records(request, mpk, modpk, vpk):
-
-    print("mpk", mpk, "modpk", modpk, "vpk", vpk)
-
+def get_vehicle_maintenance_records(request, vpk):
     maintenances = Maintenance.objects.filter(vehicle_id=vpk)
     serializer = MaintenanceSerializer(maintenances, many=True)
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def create_maintenance_record(request, mpk, modpk, vpk):
-    serializer = MaintenanceSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save(vehicle_id=vpk)
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
+def user_maintenance_records(request, vpk):
+    if request.method == 'POST':
+        serializer = MaintenanceSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user_id=request.user.id, vehicle_id=vpk)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    elif request.method == 'GET':
+        maintenances = Maintenance.objects.filter(user_id=request.user.id)
+        serializer = MaintenanceSerializer(maintenances, many=True)
+        return Response(serializer.data)
+
 
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def update_maintenance_record(request, mpk, modpk, vpk, pk):
+def update_maintenance_record(request, vpk, pk):
     maintenance = get_object_or_404(Maintenance, pk=pk)
     if request.method == 'PUT':
         serializer = MaintenanceSerializer(maintenance, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(vehicle_id=vpk)
+        serializer.save(user_id=request.user.id, vehicle_id=vpk)
         return Response(serializer.data)
     elif request.method == 'DELETE':
         maintenance.delete()

@@ -1,11 +1,14 @@
 from django.db import models
 from vehicle.models import Vehicle
+from authentication.models import User
+
 
 # Create your models here.
 
 
 class Maintenance(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     shop_name = models.CharField(max_length=50)
     service_interval_miles = models.IntegerField()

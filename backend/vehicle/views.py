@@ -9,24 +9,27 @@ from .serializers import VehicleSerializer
 
 # Create your views here.
 
-@api_view(['Get'])
+
+@api_view(['GET'])
 @permission_classes([AllowAny])
-def get_all_vehicles(request, mpk, modpk):
-
-    print("mpk", mpk, "modpk", modpk)
-
-    vehicles = Vehicle.objects.filter(model_id=modpk)
+def get_all_vehicles(request):
+    vehicles = Vehicle.objects.all()
     serializer = VehicleSerializer(vehicles, many=True)
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def create_vehicle(request, mpk, modpk):
-    serializer = VehicleSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save(user_id=request.user.id, make_id=mpk, model_id=modpk)
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
+def user_vehicles(request, mpk, modpk):
+    if request.method == 'POST':
+        serializer = VehicleSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user_id=request.user.id, make_id=mpk, model_id=modpk)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    elif request.method == 'GET':
+        vehicles = Vehicle.objects.filter(user_id=request.user.id)
+        serializer = VehicleSerializer(vehicles, many=True)
+        return Response(serializer.data)
 
 
 @api_view(['PUT', 'DELETE'])
