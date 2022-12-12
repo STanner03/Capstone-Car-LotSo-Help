@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
 
-const Navbar = () => {
+const Navbar = ({ setActiveVehicle }) => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
@@ -12,7 +12,7 @@ const Navbar = () => {
       <ul>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>Car LotSo Help</b>
+            <b>Car Lot So Help</b>
           </Link>
         </li>
         <li>

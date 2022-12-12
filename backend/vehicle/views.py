@@ -20,11 +20,11 @@ def get_all_vehicles(request):
 
 @api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def user_vehicles(request, mpk, modpk):
+def user_vehicles(request):
     if request.method == 'POST':
         serializer = VehicleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user_id=request.user.id, make_id=mpk, model_id=modpk)
+        serializer.save(user_id=request.user.id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif request.method == 'GET':
         vehicles = Vehicle.objects.filter(user_id=request.user.id)
@@ -34,12 +34,12 @@ def user_vehicles(request, mpk, modpk):
 
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def update_vehicle(request, mpk, modpk, pk):
+def update_vehicle(request, pk):
     vehicle = get_object_or_404(Vehicle, pk=pk)
     if request.method == 'PUT':
         serializer = VehicleSerializer(vehicle, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user_id=request.user.id, make_id=mpk, model_id=modpk)
+        serializer.save(user_id=request.user.id)
         return Response(serializer.data)
     elif request.method == 'DELETE':
         vehicle.delete()

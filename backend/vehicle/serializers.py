@@ -7,6 +7,6 @@ from .models import Vehicle
 class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
-        fields = ['id', 'user_id', 'vin', 'vehicle_name', 'vehicle_type',
-                  'make_id', 'model_id', 'vehicle_year', 'active', 'odometer']
+        fields = ['id', 'user_id', 'vin', 'name', 'type',
+                  'make', 'model', 'year', 'color', 'active', 'odometer']
         depth = 1
