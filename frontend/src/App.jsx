@@ -19,16 +19,18 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   // State Variables
   const [activeVehicle, setActiveVehicle] = useState({});
+  const [vehicles, setVehicles] = useState([]);
+
 
   return (
     <div>
-      <Navbar />
+      <Navbar vehicles={vehicles} setActiveVehicle={setActiveVehicle} />
       <Routes>
         <Route
           path="/"
           element={
             <PrivateRoute>
-              <HomePage setActiveVehicle={setActiveVehicle} />
+              <HomePage vehicles={vehicles} setVehicles={setVehicles} setActiveVehicle={setActiveVehicle} />
             </PrivateRoute>
           }
         />
@@ -36,7 +38,7 @@ function App() {
           path="/vehicle"
           element={
             <PrivateRoute>
-              <VehiclePage activeVehicle={activeVehicle} />
+              <VehiclePage activeVehicle={activeVehicle} setActiveVehicle={setActiveVehicle} />
             </PrivateRoute>
           }
         />

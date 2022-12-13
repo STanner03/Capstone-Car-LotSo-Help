@@ -1,40 +1,19 @@
 .drp-dn-menu {
-    position: fixed;
-    /* align-items: flex-start;
-    justify-content: left;
-    background-color: #000000;
-    width: fit-content; */
-
+  position: fixed;
 }
 
 .btn-stl {
-    font-size: medium;
-    width: auto;
-    height: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    cursor: pointer;
+  font-size: medium;
+  width: 20rem;
+  height: auto;
+  cursor: pointer;
+  margin: .1rem;
 }
 
 .sel-col {
-    width: 150px;
-    height: 30px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   cursor: pointer;
-}
-
-.del-btn {
-    display: flex;
-    align-items: center;
-    font-size: larger;
-    width: 150px;
-    height: 30px;
-}
-
-.del-btn:hover {
-    cursor: pointer;
-    background-color: red;
-    color: white;
+  width: 150px;
+  height: 30px;
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
 }

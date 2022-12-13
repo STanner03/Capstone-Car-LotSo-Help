@@ -3,13 +3,22 @@ import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
+import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 
-const Navbar = ({ setActiveVehicle }) => {
+const Navbar = ({ vehicles, setActiveVehicle }) => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <div className="navBar">
       <ul>
+        <li>
+          {user && (
+            <DropdownMenu
+              vehicles={vehicles}
+              setActiveVehicle={setActiveVehicle}
+            />
+          )}
+        </li>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
             <b>Car Lot So Help</b>
@@ -17,9 +26,9 @@ const Navbar = ({ setActiveVehicle }) => {
         </li>
         <li>
           {user ? (
-            <button onClick={logoutUser}>Logout</button>
+            <button className="button" onClick={logoutUser}>Logout</button>
           ) : (
-            <button onClick={() => navigate("/login")}>Login</button>
+            <button className="button" onClick={() => navigate("/login")}>Login</button>
           )}
         </li>
       </ul>

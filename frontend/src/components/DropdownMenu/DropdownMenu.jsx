@@ -13,9 +13,7 @@ const DropdownMenu = ({ vehicles, setActiveVehicle }) => {
     setOpen(!open);
   };
 
-  const handleAddVehicle = () => {
-    
-  }
+  const handleAddVehicle = () => {};
 
   return (
     <div className="drp-dn-menu">
@@ -24,21 +22,23 @@ const DropdownMenu = ({ vehicles, setActiveVehicle }) => {
         {open ? <ArrowDropUpTwoToneIcon /> : <ArrowDropDownTwoToneIcon />}
       </div>
       {open ? (
+        <div className="sel-col">
           <div>
-        <div>
-          <VehicleList vehicles={vehicles} setActiveVehicle={setActiveVehicle} />
+            <VehicleList
+              vehicles={vehicles}
+              setActiveVehicle={setActiveVehicle}
+            />
+          </div>
+          <div>
+            {/* <div >{
+              activeVehicle.name
+              }</div> */}
+            <button className="btn-stl" onClick={handleAddVehicle}>
+              Add New Vehicle
+            </button>
+          </div>
         </div>
-            <div>
-              <div className="sel-col">{
-              // activeVehicle.name
-              }</div>
-              <button className="btn-stl" onClick={handleAddVehicle}>
-                Add New Vehicle
-              </button>
-            </div>
-        </div>
-          ) : null
-      }
+      ) : null}
     </div>
   );
 };

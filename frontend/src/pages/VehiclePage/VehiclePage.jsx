@@ -35,7 +35,7 @@ const VehiclePage = ({ activeVehicle }) => {
 
   return (
     <div>
-      {activeVehicle.name}
+      <p>{activeVehicle.name}</p>
       {activeVehicle.year}
       {activeVehicle.make}
       {activeVehicle.model}
