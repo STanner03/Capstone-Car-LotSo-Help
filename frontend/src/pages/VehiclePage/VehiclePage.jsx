@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import EditVehicleForm from "../../components/forms/EditVehicleForm/EditVehicleForm";
 import useAuth from "../../hooks/useAuth";
+import DeleteConfirmationForm from "../../components/forms/DeleteConfirmationForm/DeleteConfirmationForm";
 
 const VehiclePage = ({
   setShowModal,
@@ -46,6 +47,15 @@ const VehiclePage = ({
     );
   };
 
+  const handleDelete = () => {
+    setShowModal(true);
+    setVehicleFormFunction("DELETE");
+    setModalForm(<DeleteConfirmationForm
+      setShowModal={setShowModal}
+      activeVehicle={activeVehicle}
+    />);
+  };
+
   // Console Logs:
   console.log("Active Vehicle... Vehicle Page", activeVehicle);
   console.log("Vehicle Fillups", vehicleFillups);
@@ -60,6 +70,7 @@ const VehiclePage = ({
       <p>Active: {activeVehicle.active}</p>
       <p>Odometer: {activeVehicle.odometer}</p>
       <button onClick={handleEditVehicle}>Edit Vehicle</button>
+      <button onClick={handleDelete}>DELETE Vehicle</button>
     </div>
   );
 };
