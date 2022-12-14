@@ -13,7 +13,6 @@ import VehiclePage from "./pages/VehiclePage/VehiclePage";
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import Modal from "./components/Modal/Modal.jsx";
-import AddVehicleForm from "./components/forms/AddVehicleForm/AddVehicleForm";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -23,7 +22,7 @@ function App() {
   const [activeVehicle, setActiveVehicle] = useState({});
   const [vehicles, setVehicles] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [vehicleFormFunction, setVehicleFormFunction] = useState("Add");
+  const [modalFormTitle, setModalFormTitle] = useState("Add");
   const [modalForm, setModalForm] = useState(null);
 
   // Handlers:
@@ -36,12 +35,9 @@ function App() {
         setShowModal={setShowModal}
         setModalForm={setModalForm}
         setActiveVehicle={setActiveVehicle}
+        setModalFormTitle={setModalFormTitle}
       />
-      <Modal
-        show={showModal}
-        onClose={handleClose}
-        title={`${vehicleFormFunction} a Vehicle in Your Garage`}
-      >
+      <Modal show={showModal} onClose={handleClose} title={modalFormTitle}>
         {modalForm}
       </Modal>
       <Routes>
@@ -52,20 +48,20 @@ function App() {
               <HomePage
                 vehicles={vehicles}
                 setVehicles={setVehicles}
-                setActiveVehicle={setActiveVehicle}
+                activeVehicle={activeVehicle}
               />
             </PrivateRoute>
           }
         />
         <Route
-          path="/vehicle"
+          path="/vehicle/*"
           element={
             <PrivateRoute>
               <VehiclePage
                 setShowModal={setShowModal}
                 setModalForm={setModalForm}
                 activeVehicle={activeVehicle}
-                setVehicleFormFunction={setVehicleFormFunction}
+                setModalFormTitle={setModalFormTitle}
               />
             </PrivateRoute>
           }

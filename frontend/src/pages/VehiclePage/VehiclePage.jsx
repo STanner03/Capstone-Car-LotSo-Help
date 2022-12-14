@@ -1,20 +1,21 @@
 // General Imports:
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Component Imports:
-import EditVehicleForm from "../../components/forms/EditVehicleForm/EditVehicleForm";
-import DeleteConfirmationForm from "../../components/forms/DeleteConfirmationForm/DeleteConfirmationForm";
+import EditVehicleForm from "../../components/forms/VehicleForms/EditVehicleForm/EditVehicleForm";
+import DeleteConfirmationForm from "../../components/forms/VehicleForms/DeleteConfirmationForm/DeleteConfirmationForm";
 
 // Util Imports:
 import useAuth from "../../hooks/useAuth";
+import PrivateRoute from "../../utils/PrivateRoute";
 
 const VehiclePage = ({
   setShowModal,
   setModalForm,
   activeVehicle,
-  setVehicleFormFunction,
+  setModalFormTitle,
 }) => {
   // State Variables
   const [user, token] = useAuth();
@@ -63,7 +64,7 @@ const VehiclePage = ({
   // Handlers:
   const handleEditVehicle = () => {
     setShowModal(true);
-    setVehicleFormFunction("Edit");
+    setModalFormTitle(`Edit Vehicle "${activeVehicle.name}"`);
     setModalForm(
       <EditVehicleForm
         setShowModal={setShowModal}
@@ -74,7 +75,7 @@ const VehiclePage = ({
 
   const handleDelete = () => {
     setShowModal(true);
-    setVehicleFormFunction("DELETE");
+    setModalFormTitle(`DELETE Vehicle "${activeVehicle.name}"`);
     setModalForm(
       <DeleteConfirmationForm
         setShowModal={setShowModal}
@@ -98,6 +99,11 @@ const VehiclePage = ({
       <p>Odometer: {activeVehicle.odometer}</p>
       <button onClick={handleEditVehicle}>Edit Vehicle</button>
       <button onClick={handleDelete}>DELETE Vehicle</button>
+      {/* <Routes>
+        <Route
+        path=""
+        />
+      </Routes> */}
     </div>
   );
 };

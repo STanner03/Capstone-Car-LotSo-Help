@@ -1,6 +1,6 @@
 // Imports:
 import axios from "axios";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
           },
         }
       );
-      navigate("/vehicle");
+      navigate("/");
     } catch (error) {
       console.log(error, "Unable to Edit Vehicle");
     }
@@ -57,7 +57,7 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
   const handleOdometer = (e) => setOdometer(e.target.value);
   const handleCancel = () => {
     setShowModal(false);
-    navigate("/");
+    navigate("/vehicle");
   };
 
   function handleSubmit(e) {

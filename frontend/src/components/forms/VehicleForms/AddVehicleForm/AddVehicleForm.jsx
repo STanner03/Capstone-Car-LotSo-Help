@@ -1,10 +1,10 @@
 // Imports:
 import axios from "axios";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AddVehicleForm = ({ setShowModal, activeVehicle }) => {
+const AddVehicleForm = ({ setShowModal }) => {
   // State Variables:
   const [user, token] = useAuth();
   const [vin, setVin] = useState("");
@@ -12,10 +12,10 @@ const AddVehicleForm = ({ setShowModal, activeVehicle }) => {
   const [type, setType] = useState("");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
-  const [year, setYear] = useState(0);
+  const [year, setYear] = useState();
   const [color, setColor] = useState("");
   const [active, setActive] = useState(false);
-  const [odometer, setOdometer] = useState(0);
+  const [odometer, setOdometer] = useState();
 
   // Variables:
   const navigate = useNavigate();

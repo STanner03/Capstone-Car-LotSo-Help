@@ -5,7 +5,13 @@ import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 
-const Navbar = ({ vehicles, setShowModal, setModalForm, setActiveVehicle }) => {
+const Navbar = ({
+  vehicles,
+  setShowModal,
+  setModalForm,
+  setActiveVehicle,
+  setModalFormTitle,
+}) => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
@@ -18,6 +24,7 @@ const Navbar = ({ vehicles, setShowModal, setModalForm, setActiveVehicle }) => {
               setShowModal={setShowModal}
               setModalForm={setModalForm}
               setActiveVehicle={setActiveVehicle}
+              setModalFormTitle={setModalFormTitle}
             />
           )}
         </li>
@@ -28,9 +35,13 @@ const Navbar = ({ vehicles, setShowModal, setModalForm, setActiveVehicle }) => {
         </li>
         <li>
           {user ? (
-            <button className="button" onClick={logoutUser}>Logout</button>
+            <button className="button" onClick={logoutUser}>
+              Logout
+            </button>
           ) : (
-            <button className="button" onClick={() => navigate("/login")}>Login</button>
+            <button className="button" onClick={() => navigate("/login")}>
+              Login
+            </button>
           )}
         </li>
       </ul>
