@@ -54,7 +54,7 @@ const HomePage = ({ vehicles, setVehicles, setActiveVehicle }) => {
       }
     };
     fetchVehicles();
-  }, [token]);
+  }, [token, vehicles.length]);
 
   useEffect(() => {
     const fetchFillups = async () => {
@@ -73,7 +73,7 @@ const HomePage = ({ vehicles, setVehicles, setActiveVehicle }) => {
       }
     };
     fetchFillups();
-  }, [token]);
+  }, [token, vehicles.length]);
 
   useEffect(() => {
     const fetchMaintenanceRecords = async () => {
@@ -92,7 +92,7 @@ const HomePage = ({ vehicles, setVehicles, setActiveVehicle }) => {
       }
     };
     fetchMaintenanceRecords();
-  }, [token]);
+  }, [token, vehicles.length]);
 
   // Functions:
   function findTotalCostofGas() {

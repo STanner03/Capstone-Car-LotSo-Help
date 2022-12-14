@@ -1,5 +1,6 @@
 // Imports:
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +18,7 @@ let defaultVehicle = {
 
 const AddVehicleForm = ({ setAddVehicleModal }) => {
   // State Variables:
+  const [user, token] = useAuth();
   const [newVehicle, setNewVehicle] = useState(defaultVehicle);
   const [vin, setVin] = useState("");
   const [name, setName] = useState("");
@@ -33,13 +35,22 @@ const AddVehicleForm = ({ setAddVehicleModal }) => {
 
   // ASYNC Functions:
   async function addNewVehicle(vehicle) {
-    let response = await axios.post(
-      "http://127.0.0.1:8000/api/Vehicle/",
-      vehicle
-    );
-    console.log("ASYNC New Vehicle", newVehicle);
-    console.log("Vehicle", vehicle);
-    navigate("/");
+    try {
+      let response = await axios.post(
+        "http://127.0.0.1:8000/api/vehicle/",
+        vehicle,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log("ASYNC New Vehicle", newVehicle);
+      console.log("Vehicle", vehicle);
+      navigate("/");
+    } catch (error) {
+      console.log(error, "Unable to Create Vehicle");
+    }
   }
 
   // Handlers:
@@ -56,7 +67,7 @@ const AddVehicleForm = ({ setAddVehicleModal }) => {
     setAddVehicleModal(false);
     navigate("/");
   };
-  console.log("Checkbox", active)
+  console.log("Checkbox", active);
   function handleSubmit(e) {
     e.preventDefault();
     let tempNewVehicle = {
