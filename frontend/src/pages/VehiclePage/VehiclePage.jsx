@@ -1,9 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import EditVehicleForm from "../../components/forms/EditVehicleForm/EditVehicleForm";
 import useAuth from "../../hooks/useAuth";
 
-const VehiclePage = ({ addVehicleModal, setAddVehicleModal, activeVehicle }) => {
+const VehiclePage = ({
+  setShowModal,
+  setModalForm,
+  activeVehicle,
+  setVehicleFormFunction,
+}) => {
   // State Variables
   const [user, token] = useAuth();
   const [vehicleFillups, setVehicleFillups] = useState([]);
@@ -28,7 +34,17 @@ const VehiclePage = ({ addVehicleModal, setAddVehicleModal, activeVehicle }) => 
     fetchVehicleFillups();
   }, [activeVehicle]);
 
-
+  // Handlers:
+  const handleEditVehicle = () => {
+    setShowModal(true);
+    setVehicleFormFunction("Edit");
+    setModalForm(
+      <EditVehicleForm
+        setShowModal={setShowModal}
+        activeVehicle={activeVehicle}
+      />
+    );
+  };
 
   // Console Logs:
   console.log("Active Vehicle... Vehicle Page", activeVehicle);
@@ -36,13 +52,14 @@ const VehiclePage = ({ addVehicleModal, setAddVehicleModal, activeVehicle }) => 
 
   return (
     <div>
-      <p>{activeVehicle.name}</p>
-      <p>{activeVehicle.year}</p>
-      <p>{activeVehicle.make}</p>
-      <p>{activeVehicle.model}</p>
-      <p>{activeVehicle.type}</p>
-      <p>{activeVehicle.odometer}</p>
-
+      <p>Name: {activeVehicle.name}</p>
+      <p>Year: {activeVehicle.year}</p>
+      <p>Make: {activeVehicle.make}</p>
+      <p>Model: {activeVehicle.model}</p>
+      <p>Type: {activeVehicle.type}</p>
+      <p>Active: {activeVehicle.active}</p>
+      <p>Odometer: {activeVehicle.odometer}</p>
+      <button onClick={handleEditVehicle}>Edit Vehicle</button>
     </div>
   );
 };

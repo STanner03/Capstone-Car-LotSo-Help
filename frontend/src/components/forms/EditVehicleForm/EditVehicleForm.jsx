@@ -1,43 +1,30 @@
 // Imports:
 import axios from "axios";
-import useAuth from "../../hooks/useAuth";
-import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-let defaultVehicle = {
-  vin: "",
-  name: "",
-  type: "",
-  make: "",
-  model: "",
-  year: 0,
-  color: "",
-  active: true,
-  odometer: 0,
-};
-
-const AddVehicleForm = ({ setAddVehicleModal }) => {
+const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
   // State Variables:
   const [user, token] = useAuth();
-  const [newVehicle, setNewVehicle] = useState(defaultVehicle);
-  const [vin, setVin] = useState("");
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [make, setMake] = useState("");
-  const [model, setModel] = useState("");
-  const [year, setYear] = useState(0);
-  const [color, setColor] = useState("");
-  const [active, setActive] = useState(false);
-  const [odometer, setOdometer] = useState(0);
+  const [vin, setVin] = useState(activeVehicle.vin);
+  const [name, setName] = useState(activeVehicle.name);
+  const [type, setType] = useState(activeVehicle.type);
+  const [make, setMake] = useState(activeVehicle.make);
+  const [model, setModel] = useState(activeVehicle.model);
+  const [year, setYear] = useState(activeVehicle.year);
+  const [color, setColor] = useState(activeVehicle.color);
+  const [active, setActive] = useState(activeVehicle.active);
+  const [odometer, setOdometer] = useState(activeVehicle.odometer);
 
   // Variables:
   const navigate = useNavigate();
 
   // ASYNC Functions:
-  async function addNewVehicle(vehicle) {
+  async function editVehicle(vehicle) {
     try {
-      let response = await axios.post(
-        "http://127.0.0.1:8000/api/vehicle/",
+      let response = await axios.put(
+        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/update/`,
         vehicle,
         {
           headers: {
@@ -45,11 +32,10 @@ const AddVehicleForm = ({ setAddVehicleModal }) => {
           },
         }
       );
-      console.log("ASYNC New Vehicle", newVehicle);
       console.log("Vehicle", vehicle);
-      navigate("/");
+      navigate("/vehicle");
     } catch (error) {
-      console.log(error, "Unable to Create Vehicle");
+      console.log(error, "Unable to Edit Vehicle");
     }
   }
 
@@ -61,16 +47,24 @@ const AddVehicleForm = ({ setAddVehicleModal }) => {
   const handleModel = (e) => setModel(e.target.value);
   const handleYear = (e) => setYear(e.target.value);
   const handleColor = (e) => setColor(e.target.value);
-  const handleCheckbox = (e) => setActive(!active);
+  const handleCheckbox = (e) => {
+    const checked = e.target.checked;
+    if (checked) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  };
   const handleOdometer = (e) => setOdometer(e.target.value);
   const handleCancel = () => {
-    setAddVehicleModal(false);
+    setShowModal(false);
     navigate("/");
   };
-  console.log("Checkbox", active);
+  console.log(active);
+
   function handleSubmit(e) {
     e.preventDefault();
-    let tempNewVehicle = {
+    let tempVehicle = {
       vin: vin,
       name: name,
       type: type,
@@ -81,10 +75,9 @@ const AddVehicleForm = ({ setAddVehicleModal }) => {
       active: active,
       odometer: odometer,
     };
-    addNewVehicle(tempNewVehicle);
-    setNewVehicle(tempNewVehicle);
-    setAddVehicleModal(false);
-    console.log("Submit New Vehicle", tempNewVehicle);
+    editVehicle(tempVehicle);
+    setShowModal(false);
+    console.log("Submit Edit Vehicle", tempVehicle);
   }
 
   return (
@@ -173,4 +166,4 @@ const AddVehicleForm = ({ setAddVehicleModal }) => {
   );
 };
 
-export default AddVehicleForm;
+export default EditVehicleForm;

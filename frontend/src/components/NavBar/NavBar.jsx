@@ -5,7 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 
-const Navbar = ({ vehicles, setAddVehicleModal, setActiveVehicle }) => {
+const Navbar = ({ vehicles, setShowModal, setModalForm, setActiveVehicle }) => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
@@ -15,7 +15,8 @@ const Navbar = ({ vehicles, setAddVehicleModal, setActiveVehicle }) => {
           {user && (
             <DropdownMenu
               vehicles={vehicles}
-              setAddVehicleModal={setAddVehicleModal}
+              setShowModal={setShowModal}
+              setModalForm={setModalForm}
               setActiveVehicle={setActiveVehicle}
             />
           )}

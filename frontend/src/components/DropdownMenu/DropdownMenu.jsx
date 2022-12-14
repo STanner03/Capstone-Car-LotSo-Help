@@ -4,8 +4,9 @@ import ArrowDropUpTwoToneIcon from "@mui/icons-material/ArrowDropUpTwoTone";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import VehicleList from "./VehicleList/VehicleList.jsx";
 import "./DropdownMenu.css";
+import AddVehicleForm from "../forms/AddVehicleForm/AddVehicleForm.jsx";
 
-const DropdownMenu = ({ vehicles, setAddVehicleModal, setActiveVehicle }) => {
+const DropdownMenu = ({ vehicles, setShowModal, setModalForm, setActiveVehicle }) => {
   // State Variables:
   const [open, setOpen] = useState(false);
 
@@ -16,7 +17,8 @@ const DropdownMenu = ({ vehicles, setAddVehicleModal, setActiveVehicle }) => {
 
   const handleAddVehicle = () => {
     handleOpen();
-    setAddVehicleModal(true);
+    setShowModal(true);
+    setModalForm(<AddVehicleForm setShowModal={setShowModal} />)
   };
 
   return (
