@@ -1,9 +1,14 @@
+// General Imports:
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+
+// Component Imports:
 import EditVehicleForm from "../../components/forms/EditVehicleForm/EditVehicleForm";
-import useAuth from "../../hooks/useAuth";
 import DeleteConfirmationForm from "../../components/forms/DeleteConfirmationForm/DeleteConfirmationForm";
+
+// Util Imports:
+import useAuth from "../../hooks/useAuth";
 
 const VehiclePage = ({
   setShowModal,
@@ -14,6 +19,7 @@ const VehiclePage = ({
   // State Variables
   const [user, token] = useAuth();
   const [vehicleFillups, setVehicleFillups] = useState([]);
+  const [vehicleMaintenance, setVehicleMaintenance] = useState([]);
 
   // UseEffects:
   useEffect(() => {
@@ -35,6 +41,25 @@ const VehiclePage = ({
     fetchVehicleFillups();
   }, [activeVehicle]);
 
+  useEffect(() => {
+    const fetchVehicleMaintenance = async () => {
+      try {
+        let response = await axios.get(
+          `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/maintenance/all/`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setVehicleMaintenance(response.data);
+      } catch (error) {
+        console.log("fetchVehicleMaintenance Failed", error.response);
+      }
+    };
+    fetchVehicleMaintenance();
+  }, [activeVehicle]);
+
   // Handlers:
   const handleEditVehicle = () => {
     setShowModal(true);
@@ -50,10 +75,12 @@ const VehiclePage = ({
   const handleDelete = () => {
     setShowModal(true);
     setVehicleFormFunction("DELETE");
-    setModalForm(<DeleteConfirmationForm
-      setShowModal={setShowModal}
-      activeVehicle={activeVehicle}
-    />);
+    setModalForm(
+      <DeleteConfirmationForm
+        setShowModal={setShowModal}
+        activeVehicle={activeVehicle}
+      />
+    );
   };
 
   // Console Logs:

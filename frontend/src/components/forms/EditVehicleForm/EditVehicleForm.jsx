@@ -32,7 +32,6 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
           },
         }
       );
-      console.log("Vehicle", vehicle);
       navigate("/vehicle");
     } catch (error) {
       console.log(error, "Unable to Edit Vehicle");
@@ -60,7 +59,6 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
     setShowModal(false);
     navigate("/");
   };
-  console.log(active);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -77,7 +75,6 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
     };
     editVehicle(tempVehicle);
     setShowModal(false);
-    console.log("Submit Edit Vehicle", tempVehicle);
   }
 
   return (

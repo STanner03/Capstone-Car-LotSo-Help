@@ -32,7 +32,6 @@ const AddVehicleForm = ({ setShowModal, activeVehicle }) => {
           },
         }
       );
-      console.log("Vehicle", vehicle);
       navigate("/");
     } catch (error) {
       console.log(error, "Unable to Create Vehicle");
@@ -55,7 +54,6 @@ const AddVehicleForm = ({ setShowModal, activeVehicle }) => {
   };
 
   // Functions:
-
   function handleSubmit(e) {
     e.preventDefault();
     let tempNewVehicle = {
@@ -71,7 +69,6 @@ const AddVehicleForm = ({ setShowModal, activeVehicle }) => {
     };
     addNewVehicle(tempNewVehicle);
     setShowModal(false);
-    console.log("Submit New Vehicle", tempNewVehicle);
   }
 
   return (

@@ -126,11 +126,11 @@ const HomePage = ({ vehicles, setVehicles, setActiveVehicle }) => {
   }
 
   // Console Logs:
-  console.log("Vehicles", vehicles);
-  console.log("Fillups", fillups);
-  console.log("Fillups Total", findTotalCostofGas());
-  console.log("Maintenance Records", maintenanceRecords);
-  console.log("Maintenance Records Total", findTotalCostofMaintenace());
+  console.log("User Vehicles", vehicles);
+  console.log("User Fillups", fillups);
+  console.log("User Fillups Total", findTotalCostofGas());
+  console.log("User Maintenance Records", maintenanceRecords);
+  console.log("User Maintenance Records Total", findTotalCostofMaintenace());
 
   return (
     <div className="container">
