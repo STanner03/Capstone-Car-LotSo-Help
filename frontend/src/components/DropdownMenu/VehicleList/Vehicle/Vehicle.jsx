@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import "./Vehicle.css";
 
-const Vehicle = ({ vehicle, setActiveVehicle }) => {
+const Vehicle = ({ handleOpen, vehicle, setActiveVehicle }) => {
   const navigate = useNavigate();
     
   const handleSelect = (e) => {
     setActiveVehicle(vehicle);
-    console.log("Selected Vehicle", vehicle)
+    handleOpen()
     navigate("/vehicle")
   };
   return (

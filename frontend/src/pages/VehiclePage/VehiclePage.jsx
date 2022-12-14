@@ -3,14 +3,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 
-const VehiclePage = ({ activeVehicle }) => {
-    // State Variables
-    const [user, token] = useAuth();
-    const [vehicleFillups, setVehicleFillups] = useState([])
+const VehiclePage = ({ addVehicleModal, setAddVehicleModal, activeVehicle }) => {
+  // State Variables
+  const [user, token] = useAuth();
+  const [vehicleFillups, setVehicleFillups] = useState([]);
 
-  // Variables
-//   const vehicleFillups = [];
-
+  // UseEffects:
   useEffect(() => {
     const fetchVehicleFillups = async () => {
       try {
@@ -30,17 +28,21 @@ const VehiclePage = ({ activeVehicle }) => {
     fetchVehicleFillups();
   }, [activeVehicle]);
 
+
+
+  // Console Logs:
   console.log("Active Vehicle... Vehicle Page", activeVehicle);
   console.log("Vehicle Fillups", vehicleFillups);
 
   return (
     <div>
       <p>{activeVehicle.name}</p>
-      {activeVehicle.year}
-      {activeVehicle.make}
-      {activeVehicle.model}
-      {activeVehicle.type}
-      {activeVehicle.odometer}
+      <p>{activeVehicle.year}</p>
+      <p>{activeVehicle.make}</p>
+      <p>{activeVehicle.model}</p>
+      <p>{activeVehicle.type}</p>
+      <p>{activeVehicle.odometer}</p>
+
     </div>
   );
 };

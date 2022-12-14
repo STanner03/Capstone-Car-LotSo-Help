@@ -5,15 +5,19 @@ import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import VehicleList from "./VehicleList/VehicleList.jsx";
 import "./DropdownMenu.css";
 
-const DropdownMenu = ({ vehicles, setActiveVehicle }) => {
+const DropdownMenu = ({ vehicles, setAddVehicleModal, setActiveVehicle }) => {
+  // State Variables:
   const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
 
+  // Handlers:
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  const handleAddVehicle = () => {};
+  const handleAddVehicle = () => {
+    handleOpen();
+    setAddVehicleModal(true);
+  };
 
   return (
     <div className="drp-dn-menu">
@@ -25,6 +29,7 @@ const DropdownMenu = ({ vehicles, setActiveVehicle }) => {
         <div className="sel-col">
           <div>
             <VehicleList
+              handleOpen={handleOpen}
               vehicles={vehicles}
               setActiveVehicle={setActiveVehicle}
             />
