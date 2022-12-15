@@ -1,11 +1,17 @@
 // General Imports:
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 // Component Imports:
 import EditVehicleForm from "../../components/forms/VehicleForms/EditVehicleForm/EditVehicleForm";
 import DeleteConfirmationForm from "../../components/forms/VehicleForms/DeleteConfirmationForm/DeleteConfirmationForm";
+import CreateFillupForm from "../../components/forms/FillupForms/CreateFillupForm/CreateFillupForm";
+import CreateMaintenanceForm from "../../components/forms/MaintenanceForms/CreateMaintenanceForm/CreateMaintenanceForm";
+
+// Page Imports:
+import FillupPage from "../FillupPage/FillupPage";
+import MaintenancePage from "../MaintenancePage/MaintenancePage";
 
 // Util Imports:
 import useAuth from "../../hooks/useAuth";
@@ -21,6 +27,9 @@ const VehiclePage = ({
   const [user, token] = useAuth();
   const [vehicleFillups, setVehicleFillups] = useState([]);
   const [vehicleMaintenance, setVehicleMaintenance] = useState([]);
+
+  // Variables:
+  const navigate = useNavigate();
 
   // UseEffects:
   useEffect(() => {
@@ -40,7 +49,7 @@ const VehiclePage = ({
       }
     };
     fetchVehicleFillups();
-  }, [activeVehicle]);
+  }, [activeVehicle, vehicleFillups.length]);
 
   useEffect(() => {
     const fetchVehicleMaintenance = async () => {
@@ -59,7 +68,7 @@ const VehiclePage = ({
       }
     };
     fetchVehicleMaintenance();
-  }, [activeVehicle]);
+  }, [activeVehicle, vehicleMaintenance.length]);
 
   // Handlers:
   const handleEditVehicle = () => {
@@ -72,12 +81,34 @@ const VehiclePage = ({
       />
     );
   };
-
   const handleDelete = () => {
     setShowModal(true);
     setModalFormTitle(`DELETE Vehicle "${activeVehicle.name}"`);
     setModalForm(
       <DeleteConfirmationForm
+        setShowModal={setShowModal}
+        activeVehicle={activeVehicle}
+      />
+    );
+  };
+  const handleAddFillup = () => {
+    setShowModal(true);
+    setModalFormTitle(`Add Fill-up Record for ${activeVehicle.name}`);
+    navigate("/vehicle/fillup");
+    setModalForm(
+      <CreateFillupForm
+        setShowModal={setShowModal}
+        activeVehicle={activeVehicle}
+        vehicleFillups={vehicleFillups}
+      />
+    );
+  };
+  const handleAddMaintenance = () => {
+    setShowModal(true);
+    setModalFormTitle(`Add Maintenance Record for ${activeVehicle.name}`);
+    navigate("/vehicle/maintenance");
+    setModalForm(
+      <CreateMaintenanceForm
         setShowModal={setShowModal}
         activeVehicle={activeVehicle}
       />
@@ -99,11 +130,32 @@ const VehiclePage = ({
       <p>Odometer: {activeVehicle.odometer}</p>
       <button onClick={handleEditVehicle}>Edit Vehicle</button>
       <button onClick={handleDelete}>DELETE Vehicle</button>
-      {/* <Routes>
+      <button onClick={handleAddFillup}>Add Fill-up</button>
+      <button onClick={handleAddMaintenance}>Add Maintenance Record</button>
+      <Routes>
         <Route
-        path=""
+          path="/fillup"
+          element={
+            <PrivateRoute>
+              <FillupPage
+                activeVehicle={activeVehicle}
+                vehicleFillups={vehicleFillups}
+              />
+            </PrivateRoute>
+          }
         />
-      </Routes> */}
+        <Route
+          path="/maintenance"
+          element={
+            <PrivateRoute>
+              <MaintenancePage
+                activeVehicle={activeVehicle}
+                vehicleMaintenance={vehicleMaintenance}
+              />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </div>
   );
 };
