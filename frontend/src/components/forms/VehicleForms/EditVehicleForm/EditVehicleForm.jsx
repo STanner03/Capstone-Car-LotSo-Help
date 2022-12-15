@@ -79,82 +79,101 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        VIN
-        <input
-          placeholder="Vehicle Identification Number"
-          type="text"
-          value={vin}
-          onChange={handleVin}
-        />
-      </label>
-      <label>
-        NAME
-        <input
-          placeholder="Give your vehicle a name"
-          type="text"
-          value={name}
-          onChange={handleName}
-        />
-      </label>
-      <label>
-        TYPE
-        <input
-          placeholder="What type of vehicle is it?"
-          type="text"
-          value={type}
-          onChange={handleType}
-        />
-      </label>
-      <label>
-        MAKE
-        <input
-          placeholder="What is the make of the vehicle?"
-          type="text"
-          value={make}
-          onChange={handleMake}
-        />
-      </label>
-      <label>
-        MODEL
-        <input
-          placeholder="What is the model of the vehicle?"
-          type="text"
-          value={model}
-          onChange={handleModel}
-        />
-      </label>
-      <label>
-        YEAR
-        <input
-          placeholder="When was the vehicle manufactured?"
-          type="number"
-          value={year}
-          onChange={handleYear}
-        />
-      </label>
-      <label>
-        COLOR
-        <input
-          placeholder="What color is the vehicle?"
-          type="text"
-          value={color}
-          onChange={handleColor}
-        />
-      </label>
-      <label>
-        Do you want to keep records of this vehicle?
-        <input type="checkbox" value={active} onChange={handleCheckbox} />
-      </label>
-      <label>
-        ODOMETER
-        <input
-          placeholder="How many MILES are on the odometer?"
-          type="number"
-          value={odometer}
-          onChange={handleOdometer}
-        />
-      </label>
+      <div>
+        <label>
+          VIN
+          <input
+            placeholder="Vehicle Identification Number"
+            type="text"
+            value={vin}
+            onChange={handleVin}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          NAME
+          <input
+            placeholder="Give your vehicle a name"
+            type="text"
+            value={name}
+            onChange={handleName}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          TYPE
+          <input
+            placeholder="What type of vehicle is it?"
+            type="text"
+            value={type}
+            onChange={handleType}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          MAKE
+          <input
+            placeholder="What is the make of the vehicle?"
+            type="text"
+            value={make}
+            onChange={handleMake}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          MODEL
+          <input
+            placeholder="What is the model of the vehicle?"
+            type="text"
+            value={model}
+            onChange={handleModel}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          YEAR
+          <input
+            placeholder="When was the vehicle manufactured?"
+            type="number"
+            value={year}
+            onChange={handleYear}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          COLOR
+          <input
+            placeholder="What color is the vehicle?"
+            type="text"
+            value={color}
+            onChange={handleColor}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Do you want to keep records of this vehicle?
+          <input type="checkbox" value={active} onChange={handleCheckbox} />
+        </label>
+      </div>
+      <div>
+        <label>
+          ODOMETER
+          <input
+            placeholder="How many MILES are on the odometer?"
+            type="number"
+            value={odometer}
+            onChange={handleOdometer}
+          />
+        </label>
+      </div>
+      <p>**MUST FILL OUT ALL FIELDS**</p>
       <div>
         <button onClick={handleCancel}>CANCEL</button>
         <button type="submit">SAVE</button>

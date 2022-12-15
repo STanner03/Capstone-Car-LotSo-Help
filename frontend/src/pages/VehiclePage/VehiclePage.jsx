@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 // Component Imports:
 import EditVehicleForm from "../../components/forms/VehicleForms/EditVehicleForm/EditVehicleForm";
 import DeleteConfirmationForm from "../../components/forms/VehicleForms/DeleteConfirmationForm/DeleteConfirmationForm";
-import CreateFillupForm from "../../components/forms/FillupForms/CreateFillupForm/CreateFillupForm";
-import CreateMaintenanceForm from "../../components/forms/MaintenanceForms/CreateMaintenanceForm/CreateMaintenanceForm";
 
 // Page Imports:
 import FillupPage from "../FillupPage/FillupPage";
@@ -91,32 +89,15 @@ const VehiclePage = ({
       />
     );
   };
-  const handleAddFillup = () => {
-    setShowModal(true);
-    setModalFormTitle(`Add Fill-up Record for ${activeVehicle.name}`);
+  const handleShowFillups = () => {
     navigate("/vehicle/fillup");
-    setModalForm(
-      <CreateFillupForm
-        setShowModal={setShowModal}
-        activeVehicle={activeVehicle}
-        vehicleFillups={vehicleFillups}
-      />
-    );
   };
-  const handleAddMaintenance = () => {
-    setShowModal(true);
-    setModalFormTitle(`Add Maintenance Record for ${activeVehicle.name}`);
+  const handleShowMaintenance = () => {
     navigate("/vehicle/maintenance");
-    setModalForm(
-      <CreateMaintenanceForm
-        setShowModal={setShowModal}
-        activeVehicle={activeVehicle}
-      />
-    );
   };
 
   // Console Logs:
-  console.log("Active Vehicle... Vehicle Page", activeVehicle);
+  // console.log("Active Vehicle... Vehicle Page", activeVehicle);
   console.log("Vehicle Fillups", vehicleFillups);
 
   return (
@@ -130,14 +111,17 @@ const VehiclePage = ({
       <p>Odometer: {activeVehicle.odometer}</p>
       <button onClick={handleEditVehicle}>Edit Vehicle</button>
       <button onClick={handleDelete}>DELETE Vehicle</button>
-      <button onClick={handleAddFillup}>Add Fill-up</button>
-      <button onClick={handleAddMaintenance}>Add Maintenance Record</button>
+      <button onClick={handleShowFillups}>Show Fill-up Records</button>
+      <button onClick={handleShowMaintenance}>Show Maintenance Records</button>
       <Routes>
         <Route
           path="/fillup"
           element={
             <PrivateRoute>
               <FillupPage
+                setShowModal={setShowModal}
+                setModalForm={setModalForm}
+                setModalFormTitle={setModalFormTitle}
                 activeVehicle={activeVehicle}
                 vehicleFillups={vehicleFillups}
               />
@@ -149,6 +133,9 @@ const VehiclePage = ({
           element={
             <PrivateRoute>
               <MaintenancePage
+                setShowModal={setShowModal}
+                setModalForm={setModalForm}
+                setModalFormTitle={setModalFormTitle}
                 activeVehicle={activeVehicle}
                 vehicleMaintenance={vehicleMaintenance}
               />

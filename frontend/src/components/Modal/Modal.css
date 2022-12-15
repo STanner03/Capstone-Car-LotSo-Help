@@ -14,8 +14,8 @@
 .modal {
     background-color: #D9D9D9;
     border-radius: 5px;
-    width: 400px;
-    height: 300px;
+    width: 50%;
+    height: 50%;
 }
 
 .modal-header {
