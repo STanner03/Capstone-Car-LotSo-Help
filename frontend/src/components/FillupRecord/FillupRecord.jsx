@@ -25,6 +25,7 @@ const FillupRecord = ({
     );
     setModalForm(
       <EditFillupForm
+        fillup={fillup}
         setShowModal={setShowModal}
         activeVehicle={activeVehicle}
       />
