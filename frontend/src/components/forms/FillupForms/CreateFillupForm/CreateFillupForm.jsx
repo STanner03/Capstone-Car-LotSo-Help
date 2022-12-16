@@ -28,7 +28,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle, vehicleFillups }) => {
   // ASYNC Functions:
   async function addFillup(record) {
     try {
-      let response = await axios.post(
+      await axios.post(
         `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/fillup/`,
         record,
         {
@@ -44,7 +44,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle, vehicleFillups }) => {
   }
   async function editVehicle(vehicle) {
     try {
-      let response = await axios.put(
+      await axios.put(
         `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/update/`,
         vehicle,
         {
@@ -182,7 +182,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle, vehicleFillups }) => {
           Notes
           <input
             placeholder="Notes"
-            type="text"
+            type="text-field"
             value={notes}
             onChange={handleNotes}
           />

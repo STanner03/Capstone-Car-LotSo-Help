@@ -44,9 +44,6 @@ const DropdownMenu = ({
             />
           </div>
           <div>
-            {/* <div >{
-              activeVehicle.name
-              }</div> */}
             <button className="btn-stl" onClick={handleAddVehicle}>
               Add New Vehicle
             </button>

@@ -2,6 +2,8 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Component Imports:
 import EditVehicleForm from "../../components/forms/VehicleForms/EditVehicleForm/EditVehicleForm";
@@ -68,6 +70,8 @@ const VehiclePage = ({
     fetchVehicleMaintenance();
   }, [activeVehicle, vehicleMaintenance.length]);
 
+  // Functions:
+
   // Handlers:
   const handleEditVehicle = () => {
     setShowModal(true);
@@ -97,18 +101,19 @@ const VehiclePage = ({
   };
 
   // Console Logs:
-  // console.log("Active Vehicle... Vehicle Page", activeVehicle);
+  console.log("Active Vehicle... Active?", activeVehicle.active);
   console.log("Vehicle Fillups", vehicleFillups);
 
   return (
     <div>
-      <p>Name: {activeVehicle.name}</p>
-      <p>Year: {activeVehicle.year}</p>
-      <p>Make: {activeVehicle.make}</p>
-      <p>Model: {activeVehicle.model}</p>
+      <h1>{activeVehicle.name}</h1>
+      {/* <p>Name: {activeVehicle.name}</p> */}
+      <p>
+        {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
+      </p>
+      <p>{activeVehicle.odometer} Miles driven</p>
       <p>Type: {activeVehicle.type}</p>
-      <p>Active: {activeVehicle.active}</p>
-      <p>Odometer: {activeVehicle.odometer}</p>
+      <p>Active: {activeVehicle.active ? <CheckIcon/> : <CloseIcon/>}</p>
       <button onClick={handleEditVehicle}>Edit Vehicle</button>
       <button onClick={handleDelete}>DELETE Vehicle</button>
       <button onClick={handleShowFillups}>Show Fill-up Records</button>
