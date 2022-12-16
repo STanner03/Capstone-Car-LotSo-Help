@@ -34,7 +34,6 @@ const DeleteFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   }
   const handleCancel = () => {
     setShowModal(false);
-    // navigate("/vehicle/fillup");
   };
 
   return (
