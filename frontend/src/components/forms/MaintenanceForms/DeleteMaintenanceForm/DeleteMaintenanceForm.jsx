@@ -3,7 +3,11 @@ import axios from "axios";
 import useAuth from "../../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-const DeleteFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
+const DeleteMaintenanceForm = ({
+  maintenance,
+  setShowModal,
+  activeVehicle,
+}) => {
   // State Variables:
   const [user, token] = useAuth();
 
@@ -11,10 +15,10 @@ const DeleteFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   const navigate = useNavigate();
 
   // ASYNC Functions:
-  async function deleteFillup() {
+  async function deleteService() {
     try {
       await axios.delete(
-        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/fillup/${fillup.id}/update/`,
+        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/maintenance/${maintenance.id}/update/`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -29,12 +33,11 @@ const DeleteFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
 
   // Functions:
   function handleDelete() {
-    deleteFillup();
+    deleteService();
     setShowModal(false);
   }
   const handleCancel = () => {
     setShowModal(false);
-    // navigate("/vehicle/fillup");
   };
 
   return (
@@ -48,4 +51,4 @@ const DeleteFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   );
 };
 
-export default DeleteFillupForm;
+export default DeleteMaintenanceForm;

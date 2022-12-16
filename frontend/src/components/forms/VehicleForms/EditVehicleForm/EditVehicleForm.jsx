@@ -77,6 +77,10 @@ const EditVehicleForm = ({ setShowModal, activeVehicle }) => {
     setShowModal(false);
   }
 
+  // Console Logs:
+  // console.log("Active", active);
+  // console.log("Active Vehicle: Active Status", activeVehicle.active);
+
   return (
     <form onSubmit={handleSubmit}>
       <div>

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FillupRecord from "../../components/FillupRecord/FillupRecord";
 import CreateFillupForm from "../../components/forms/FillupForms/CreateFillupForm/CreateFillupForm";
-import useAuth from "../../hooks/useAuth";
 
 const FillupPage = ({
   setShowModal,
@@ -12,7 +11,6 @@ const FillupPage = ({
   vehicleFillups,
 }) => {
   // State Variables:
-  const [user, token] = useAuth();
   const [vehicleMPG, setVehicleMPG] = useState(0);
   const [aveMiPerFillup, setAveMiPerFillup] = useState(0);
   const [aveGalPerFillup, setAveGalPerFillup] = useState(0);
@@ -100,6 +98,7 @@ const FillupPage = ({
         {vehicleFillups?.map((fillup, i) => (
           <FillupRecord
             key={i}
+            i={i + 1}
             fillup={fillup}
             setShowModal={setShowModal}
             setModalForm={setModalForm}

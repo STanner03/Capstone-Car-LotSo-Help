@@ -102,7 +102,7 @@ const VehiclePage = ({
 
   // Console Logs:
   console.log("Active Vehicle... Active?", activeVehicle.active);
-  console.log("Vehicle Fillups", vehicleFillups);
+  console.log("Vehicle Maintenance", vehicleMaintenance);
 
   return (
     <div>

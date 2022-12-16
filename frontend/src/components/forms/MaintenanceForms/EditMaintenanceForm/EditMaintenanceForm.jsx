@@ -1,46 +1,32 @@
 // Imports:
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../hooks/useAuth";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
+const EditMaintenanceForm = ({ maintenance, setShowModal, activeVehicle }) => {
   // State Variables:
   const [user, token] = useAuth();
-  const [description, setDescription] = useState("");
-  const [shopName, setShopName] = useState("NA");
-  const [serviceIntervalMi, setServiceIntervalMi] = useState(5000);
-  const [odometer, setOdometer] = useState(activeVehicle.odometer);
-  const [prevOdometer] = useState(activeVehicle.odometer);
-  const [totalCost, setTotalCost] = useState(0.0);
-  const [date, setDate] = useState("0000/00/00");
-  const [notes, setNotes] = useState("No Notes");
+  const [description, setDescription] = useState(maintenance.description);
+  const [shopName, setShopName] = useState(maintenance.shop_name);
+  const [serviceIntervalMi, setServiceIntervalMi] = useState(
+    maintenance.service_interval_miles
+  );
+  const [odometer, setOdometer] = useState(maintenance.odometer);
+  const [prevOdometer] = useState(maintenance.prev_odometer);
+  const [totalCost, setTotalCost] = useState(maintenance.total_cost);
+  const [date, setDate] = useState(maintenance.date);
+  const [notes, setNotes] = useState(maintenance.notes);
 
   // Variables:
   const navigate = useNavigate();
 
   // ASYNC Functions:
-  async function addMaintenance(record) {
-    try {
-      await axios.post(
-        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/maintenance/`,
-        record,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      navigate("/vehicle");
-    } catch (error) {
-      console.log(error, "Unable to Create Record");
-    }
-  }
-  async function editVehicle(vehicle) {
+  async function editMaintenance(record) {
     try {
       await axios.put(
-        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/update/`,
-        vehicle,
+        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/maintenance/${maintenance.id}/update/`,
+        record,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -49,7 +35,7 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
       );
       navigate("/");
     } catch (error) {
-      console.log(error, "Unable to Edit Vehicle");
+      console.log(error, "Unable to Edit Record");
     }
   }
 
@@ -66,22 +52,8 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
       date: date,
       notes: notes,
     };
-    let tempVehicle = {
-      vin: activeVehicle.vin,
-      name: activeVehicle.name,
-      type: activeVehicle.type,
-      make: activeVehicle.make,
-      model: activeVehicle.model,
-      year: activeVehicle.year,
-      color: activeVehicle.color,
-      active: activeVehicle.active,
-      odometer: odometer,
-    };
-    if (odometer >= activeVehicle.odometer) {
-      editVehicle(tempVehicle);
-      addMaintenance(tempMaintenance);
-      setShowModal(false);
-    }
+    editMaintenance(tempMaintenance);
+    setShowModal(false);
   }
 
   // Handlers:
@@ -102,8 +74,6 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
     setShowModal(false);
     navigate("/vehicle/maintenance");
   };
-
-  // Console Logs:
 
   return (
     <form onSubmit={handleSubmit}>
@@ -189,4 +159,4 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
   );
 };
 
-export default CreateMaintenanceForm;
+export default EditMaintenanceForm;

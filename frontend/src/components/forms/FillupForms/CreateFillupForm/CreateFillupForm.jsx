@@ -84,7 +84,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
       active: activeVehicle.active,
       odometer: odometer,
     };
-    if (odometer > activeVehicle.odometer) {
+    if (odometer >= activeVehicle.odometer) {
       editVehicle(tempVehicle);
       addFillup(tempFillup);
       setShowModal(false);

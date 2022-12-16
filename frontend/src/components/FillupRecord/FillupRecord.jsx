@@ -4,6 +4,7 @@ import DeleteFillupForm from "../forms/FillupForms/DeleteFillupForm/DeleteFillup
 import EditFillupForm from "../forms/FillupForms/EditFillupForm/EditFillupForm";
 
 const FillupRecord = ({
+  i,
   fillup,
   setShowModal,
   setModalForm,
@@ -20,11 +21,10 @@ const FillupRecord = ({
   const handleEditFillup = () => {
     setShowModal(true);
     setModalFormTitle(
-      `Edit Fill-up Record from ${fillup.date} for ${activeVehicle.name}`
+      `Edit Fill-up Record #${i} on ${fillup.date} for ${activeVehicle.name}`
     );
     setModalForm(
       <EditFillupForm
-        fillup={fillup}
         setShowModal={setShowModal}
         activeVehicle={activeVehicle}
       />
@@ -34,7 +34,7 @@ const FillupRecord = ({
   const handleDelete = () => {
     setShowModal(true);
     setModalFormTitle(
-      `Delete Fill-up from ${fillup.date} for ${activeVehicle.name}`
+      `Delete Fill-up #${i} on ${fillup.date} for ${activeVehicle.name}`
     );
     setModalForm(
       <DeleteFillupForm
@@ -48,7 +48,9 @@ const FillupRecord = ({
   return (
     <div>
       <button onClick={handleSelect}>
-        <h2>{fillup.date}</h2>
+        <h2>
+          Fill-up #{i}, {fillup.date}
+        </h2>
         <p>Gal Price: ${fillup.fuel_price_per_gallon}</p>
         <p>Volume: {fillup.fuel_volume}</p>
         <p>Total: ${fillup.total_cost}</p>
@@ -56,7 +58,6 @@ const FillupRecord = ({
       {show && (
         <table>
           <thead>
-            <th>Individual Fill-up Information</th>
             <tr>
               <th>Date</th>
               <th>Price Gal</th>
@@ -67,21 +68,27 @@ const FillupRecord = ({
               <th>Odometer</th>
               <th>Station/Location</th>
               <th>Notes</th>
-              <button onClick={handleEditFillup}>Edit Fill-up</button>
+              <th>
+                <button onClick={handleEditFillup}>Edit Fill-up</button>
+              </th>
             </tr>
           </thead>
-          <tr>
-            <td>{fillup.date}</td>
-            <td>{fillup.fuel_price_per_gallon}</td>
-            <td>{fillup.fuel_volume}</td>
-            <td>{fillup.total_cost}</td>
-            <td>{fillup.fuel_type}</td>
-            <td>{fillup.prev_odometer}</td>
-            <td>{fillup.odometer}</td>
-            <td>{fillup.station_name}</td>
-            <td>{fillup.notes}</td>
-            <button onClick={handleDelete}>Delete Fill-up</button>
-          </tr>
+          <tbody>
+            <tr>
+              <td>{fillup.date}</td>
+              <td>${fillup.fuel_price_per_gallon}</td>
+              <td>{fillup.fuel_volume}</td>
+              <td>${fillup.total_cost}</td>
+              <td>{fillup.fuel_type}</td>
+              <td>{fillup.prev_odometer} Mi</td>
+              <td>{fillup.odometer} Mi</td>
+              <td>{fillup.station_name}</td>
+              <td>{fillup.notes}</td>
+              <td>
+                <button onClick={handleDelete}>Delete Fill-up</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       )}
     </div>

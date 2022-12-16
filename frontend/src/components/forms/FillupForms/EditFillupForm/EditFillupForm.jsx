@@ -26,7 +26,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   }, [fuelVolume, fuelPPG]);
 
   // ASYNC Functions:
-  async function addFillup(record) {
+  async function editFillup(record) {
     try {
       await axios.put(
         `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/fillup/${fillup.id}/update/`,
@@ -39,7 +39,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
       );
       navigate("/vehicle");
     } catch (error) {
-      console.log(error, "Unable to Create Record");
+      console.log(error, "Unable to Edit Record");
     }
   }
 
@@ -57,7 +57,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
       station_name: stationName,
       total_cost: cost,
     };
-    addFillup(tempFillup);
+    editFillup(tempFillup);
     setShowModal(false);
   }
 

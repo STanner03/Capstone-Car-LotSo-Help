@@ -7,5 +7,5 @@ User Stories
 •(15 points) As a vehicle owner, I want to see local shops on a map and in list form, so I can compare locations and see shop information to help me decide where to have the maintenance performed. (Using google maps api and google places api)
 •(7.5 points) As a vehicle owner, I want to see gas stations in my area on a map, so I can easily navigate to a chosen station.
 •(10 points) As a vehicle owner, I want to see overall data for all my vehicles on a dashboard with charts, so I can see my personal data. (Using Google Charts)
-•(5 points) As a vehicle owner, I want to disable/enable a vehicle, so I can keep the data I have stored, but not receive reminders about maintenance intervals for that vehicle.
+<!-- •(5 points) As a vehicle owner, I want to disable/enable a vehicle, so I can keep the data I have stored, but not receive reminders about maintenance intervals for that vehicle. -->
 •As a developer, I want to have an aesthetically pleasing and intuitive user interface/user experience (UI/UX) with all features of the application stylized. (CSS, Bootstrap, Material UI, etc.)  
