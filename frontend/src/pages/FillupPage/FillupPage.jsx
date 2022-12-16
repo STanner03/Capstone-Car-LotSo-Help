@@ -13,11 +13,11 @@ const FillupPage = ({
 }) => {
   // State Variables:
   const [user, token] = useAuth();
-  const [vehicleMPG, setVehicleMPG] = useState();
-  const [aveMiPerFillup, setAveMiPerFillup] = useState();
-  const [aveGalPerFillup, setAveGalPerFillup] = useState();
-  const [aveCostPerFillup, setAveCostPerFillup] = useState();
-  const [totalCost, setTotalCost] = useState();
+  const [vehicleMPG, setVehicleMPG] = useState(0);
+  const [aveMiPerFillup, setAveMiPerFillup] = useState(0);
+  const [aveGalPerFillup, setAveGalPerFillup] = useState(0);
+  const [aveCostPerFillup, setAveCostPerFillup] = useState(0.0);
+  const [totalCost, setTotalCost] = useState(0.0);
 
   // Variables:
   const navigate = useNavigate();
@@ -57,17 +57,33 @@ const FillupPage = ({
   }, [activeVehicle, vehicleFillups]);
 
   // Handlers:
+  const handleOK = () => {
+    setShowModal(false);
+  };
   const handleAddFillup = () => {
-    setShowModal(true);
-    setModalFormTitle(`Add Fill-up Record for ${activeVehicle.name}`);
-    navigate("/vehicle/fillup");
-    setModalForm(
-      <CreateFillupForm
-        setShowModal={setShowModal}
-        activeVehicle={activeVehicle}
-        vehicleFillups={vehicleFillups}
-      />
-    );
+    if (activeVehicle.active === true) {
+      setShowModal(true);
+      setModalFormTitle(`Add Fill-up Record for ${activeVehicle.name}`);
+      navigate("/vehicle/fillup");
+      setModalForm(
+        <CreateFillupForm
+          setShowModal={setShowModal}
+          activeVehicle={activeVehicle}
+        />
+      );
+    } else {
+      setShowModal(true);
+      setModalFormTitle("Invalid Selection");
+      setModalForm(
+        <div>
+          <div>
+            {activeVehicle.name} is not an active vehicle, select or create an
+            active vehicle.
+          </div>
+          <button onClick={handleOK}>OK</button>
+        </div>
+      );
+    }
   };
 
   return (
@@ -81,8 +97,7 @@ const FillupPage = ({
         <button onClick={handleAddFillup}>Add Fill-up Record</button>
       </div>
       <div>
-        {/* {vehicleFillups.length !== 0 ?  */}
-        {vehicleFillups.map((fillup, i) => (
+        {vehicleFillups?.map((fillup, i) => (
           <FillupRecord
             key={i}
             fillup={fillup}
@@ -92,7 +107,6 @@ const FillupPage = ({
             activeVehicle={activeVehicle}
           />
         ))}
-        {/* // : null} */}
       </div>
     </div>
   );

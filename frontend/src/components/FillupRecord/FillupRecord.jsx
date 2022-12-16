@@ -7,17 +7,14 @@ const FillupRecord = ({
   fillup,
   setShowModal,
   setModalForm,
-  vehicleFillups,
   setModalFormTitle,
   activeVehicle,
 }) => {
   // State Variables:
-  const [activeFillup, setActiveFillup] = useState();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   // Handlers:
   const handleSelect = () => {
-    setActiveFillup(fillup);
     setShow(!show);
   };
   const handleEditFillup = () => {
@@ -27,9 +24,9 @@ const FillupRecord = ({
     );
     setModalForm(
       <EditFillupForm
+        fillup={fillup}
         setShowModal={setShowModal}
         activeVehicle={activeVehicle}
-        fillup={fillup}
       />
     );
     console.log("Active Fill-up", fillup);
@@ -39,7 +36,13 @@ const FillupRecord = ({
     setModalFormTitle(
       `Delete Fill-up from ${fillup.date} for ${activeVehicle.name}`
     );
-    setModalForm(<DeleteFillupForm />);
+    setModalForm(
+      <DeleteFillupForm
+        fillup={fillup}
+        setShowModal={setShowModal}
+        activeVehicle={activeVehicle}
+      />
+    );
     console.log("Active Fill-up", fillup);
   };
   return (

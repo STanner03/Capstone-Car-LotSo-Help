@@ -4,7 +4,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateFillupForm = ({ setShowModal, activeVehicle, vehicleFillups }) => {
+const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
   // State Variables:
   const [user, token] = useAuth();
   const [stationName, setStationName] = useState("N/A");
@@ -14,7 +14,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle, vehicleFillups }) => {
   const [fuelPPG, setFuelPPG] = useState(0.0);
   const [fuelVolume, setFuelVolume] = useState(0.0);
   const [cost, setCost] = useState(0.0);
-  const [date, setDate] = useState();
+  const [date, setDate] = useState("0000/00/00");
   const [notes, setNotes] = useState("No Notes");
 
   // Variables:

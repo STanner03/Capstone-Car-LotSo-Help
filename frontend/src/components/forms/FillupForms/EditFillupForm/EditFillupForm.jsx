@@ -4,7 +4,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EditFillupForm = ({ setShowModal, activeVehicle, fillup }) => {
+const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   // State Variables:
   const [user, token] = useAuth();
   const [stationName, setStationName] = useState(fillup.station_name);

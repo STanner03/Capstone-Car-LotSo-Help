@@ -113,7 +113,7 @@ const VehiclePage = ({
       </p>
       <p>{activeVehicle.odometer} Miles driven</p>
       <p>Type: {activeVehicle.type}</p>
-      <p>Active: {activeVehicle.active ? <CheckIcon/> : <CloseIcon/>}</p>
+      <p>Active: {activeVehicle.active ? <CheckIcon /> : <CloseIcon />}</p>
       <button onClick={handleEditVehicle}>Edit Vehicle</button>
       <button onClick={handleDelete}>DELETE Vehicle</button>
       <button onClick={handleShowFillups}>Show Fill-up Records</button>
