@@ -30,7 +30,6 @@ const FillupRecord = ({
         activeVehicle={activeVehicle}
       />
     );
-    console.log("Active Fill-up", fillup);
   };
   const handleDelete = () => {
     setShowModal(true);
@@ -44,18 +43,25 @@ const FillupRecord = ({
         activeVehicle={activeVehicle}
       />
     );
-    console.log("Active Fill-up", fillup);
   };
+
   return (
     <div>
-      <button onClick={handleSelect}>
-        <h2>
-          Fill-up #{i}, {fillup.date}
-        </h2>
-        <p>Gal Price: ${fillup.fuel_price_per_gallon}</p>
-        <p>Volume: {fillup.fuel_volume}</p>
-        <p>Total: ${fillup.total_cost}</p>
-      </button>
+      <table onClick={handleSelect}>
+        <thead>
+          <h2>
+            Fill-up #{i}, {fillup.date}
+          </h2>
+        </thead>
+        <td>
+          <tr>
+            <td>Gal Price: ${fillup.fuel_price_per_gallon}</td>
+            <td>Volume: {fillup.fuel_volume}</td>
+            <td>Total: ${fillup.total_cost}</td>
+            <td>MPG:{fillup.mpg}</td>
+          </tr>
+        </td>
+      </table>
       {show && (
         <table>
           <thead>
@@ -67,6 +73,7 @@ const FillupRecord = ({
               <th>Fuel Type/Grade</th>
               <th>Previous Odometer</th>
               <th>Odometer</th>
+              <th>MPG</th>
               <th>Station/Location</th>
               <th>Notes</th>
               <th>
@@ -83,6 +90,7 @@ const FillupRecord = ({
               <td>{fillup.fuel_type}</td>
               <td>{fillup.prev_odometer} Mi</td>
               <td>{fillup.odometer} Mi</td>
+              <td>{fillup.mpg} Mi</td>
               <td>{fillup.station_name}</td>
               <td>{fillup.notes}</td>
               <td>

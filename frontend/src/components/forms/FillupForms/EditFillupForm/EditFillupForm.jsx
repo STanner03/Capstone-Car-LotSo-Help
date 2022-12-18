@@ -13,6 +13,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   const [fuelType, setFuelType] = useState(fillup.fuel_type);
   const [fuelPPG, setFuelPPG] = useState(fillup.fuel_price_per_gallon);
   const [fuelVolume, setFuelVolume] = useState(fillup.fuel_volume);
+  const [economy, setEconomy] = useState(0.0);
   const [cost, setCost] = useState(fillup.total_cost);
   const [date, setDate] = useState(fillup.date);
   const [notes, setNotes] = useState(fillup.notes);
@@ -23,6 +24,9 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   // UseEffect:
   useEffect(() => {
     setCost(parseFloat(fuelPPG * parseFloat(fuelVolume)).toFixed(2));
+    setEconomy(
+      parseFloat((odometer - prevOdometer) / parseFloat(fuelVolume)).toFixed(2)
+    );
   }, [fuelVolume, fuelPPG]);
 
   // ASYNC Functions:
@@ -54,6 +58,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
       notes: notes,
       odometer: odometer,
       prev_odometer: prevOdometer,
+      mpg: economy,
       station_name: stationName,
       total_cost: cost,
     };
@@ -138,6 +143,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
           />
         </label>
       </div>
+      <div>MPG: {economy}</div>
       <div>Total price: ${cost}</div>
       <div>
         <label>

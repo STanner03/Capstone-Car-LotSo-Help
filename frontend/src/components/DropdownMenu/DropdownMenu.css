@@ -1,5 +1,6 @@
 .drp-dn-menu {
   position: absolute;
+  z-index: 95;
 }
 
 .btn-stl {

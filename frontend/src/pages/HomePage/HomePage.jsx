@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import CostLineChart from "../../components/CostLineChart/CostLineChart.jsx";
 
 const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -10,147 +11,242 @@ const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
 
   // State Variables:
   const [user, token] = useAuth();
+  const [activatedVehicles, setActivatedVehicles] = useState([]);
   const [fillups, setFillups] = useState([]);
   const [maintenanceRecords, setMaintenanceRecords] = useState([]);
-
-  // Variables:
-  // const userFillupsTotal = 0
-  // const userGasVolumeTotal = 0;
-  // const userAvgPerGalCost = 0.0;
-  // const userMaintenanceTotal = 0;
-  // const userTotalMiles = 0;
-  // const userAvgPerMileCost = 0.0;
+  const [totalCostofGas, setTotalCostofGas] = useState(0.0);
+  const [totalCostofMaintenance, setTotalCostofMaintenance] = useState(0.0);
+  const [gasVolumeTotal, setGasVolumeTotal] = useState(0.0);
+  const [avgPerGalCost, setAvgPerGalCost] = useState(0.0);
+  const [totalMiles, setTotalMiles] = useState(0);
+  const [avgPerMileCost, setAvgPerMileCost] = useState(0.0);
+  const [userMPG, setUserMPG] = useState(0.0);
+  const [ownershipCost, setOwnershipCost] = useState(0.0);
 
   // UseEffects:
-
-  // const [cars, setCars] = useState([]);
-  // useEffect(() => {
-  //   const fetchCars = async () => {
-  //     try {
-  //       let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
-  //         headers: {
-  //           Authorization: "Bearer " + token,
-  //         },
-  //       });
-  //       setCars(response.data);
-  //     } catch (error) {
-  //       console.log(error.response.data);
-  //     }
-  //   };
-  //   fetchCars();
-  // }, [token]);
+  useEffect(() => {
+    fetchVehicles();
+    fetchFillups();
+    fetchMaintenanceRecords();
+  }, [user, token, activeVehicle, vehicles.length]);
 
   useEffect(() => {
-    const fetchVehicles = async () => {
-      try {
-        let response = await axios.get("http://127.0.0.1:8000/api/vehicle/", {
+    findActiveVehicles();
+    getUserInfo();
+  }, [fillups, maintenanceRecords]);
+
+  // ASYNC Functions:
+  const fetchVehicles = async () => {
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/api/vehicle/", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      setVehicles(response.data);
+    } catch (error) {
+      console.log(error, "Could not fetch Vehicles");
+    }
+  };
+  const fetchFillups = async () => {
+    try {
+      let response = await axios.get(
+        "http://127.0.0.1:8000/api/vehicle/6/fillup/",
+        {
           headers: {
             Authorization: "Bearer " + token,
           },
-        });
-        setVehicles(response.data);
-      } catch (error) {
-        console.log(error, "Could not fetch Vehicles");
-      }
-    };
-    fetchVehicles();
-  }, [token, activeVehicle, vehicles.length]);
-
-  useEffect(() => {
-    const fetchFillups = async () => {
-      try {
-        let response = await axios.get(
-          "http://127.0.0.1:8000/api/vehicle/6/fillup/",
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        setFillups(response.data);
-      } catch (error) {
-        console.log(error, "Could not fetch Fillups");
-      }
-    };
-    fetchFillups();
-  }, [token, vehicles.length]);
-
-  useEffect(() => {
-    const fetchMaintenanceRecords = async () => {
-      try {
-        let response = await axios.get(
-          "http://127.0.0.1:8000/api/vehicle/6/maintenance/",
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        setMaintenanceRecords(response.data);
-      } catch (error) {
-        console.log(error, "Could not fetch Maintenance Records");
-      }
-    };
-    fetchMaintenanceRecords();
-  }, [token, vehicles.length]);
-
-  // Functions:
-  function findTotalCostofGas() {
-    const fillupTotalCosts = fillups.map((el, i) => {
-      return el.total_cost;
-    });
-    if (fillupTotalCosts.length > 0) {
-      const userFillupsTotal = fillupTotalCosts.reduce((total, fillup) => {
-        return total + fillup;
-      });
-      return userFillupsTotal;
-    } else {
-      return 0;
-    }
-  }
-
-  function findTotalCostofMaintenace() {
-    const maintenanceRecordTotalCosts = maintenanceRecords.map((el, i) => {
-      return el.total_cost;
-    });
-    if (maintenanceRecordTotalCosts.length > 0) {
-      const userMaintenanceRecordsTotal = maintenanceRecordTotalCosts.reduce(
-        (total, maintenanceRecord) => {
-          return total + maintenanceRecord;
         }
       );
-      return userMaintenanceRecordsTotal;
-    } else {
-      return 0;
+      setFillups(response.data);
+    } catch (error) {
+      console.log(error, "Could not fetch Fillups");
+    }
+  };
+  const fetchMaintenanceRecords = async () => {
+    try {
+      let response = await axios.get(
+        "http://127.0.0.1:8000/api/vehicle/6/maintenance/",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      setMaintenanceRecords(response.data);
+    } catch (error) {
+      console.log(error, "Could not fetch Maintenance Records");
+    }
+  };
+
+  // Functions:
+  function getUserInfo() {
+    if (fillups.length > 0) {
+      const tempMiles = fillups?.map((fillup, i) => {
+        return fillup.odometer - fillup.prev_odometer;
+      });
+      const tempGallons = fillups?.map((fillup, i) => {
+        return fillup.fuel_volume;
+      });
+      const tempTotalCost = fillups?.map((fillup, i) => {
+        return fillup.total_cost;
+      });
+      const tempPerGal = fillups?.map((fillup, i) => {
+        return fillup.fuel_price_per_gallon;
+      });
+      const tempMilesSum = tempMiles.reduce((total, element) => {
+        return total + element;
+      });
+      const tempGallonsSum = tempGallons.reduce((total, element) => {
+        return total + element;
+      });
+      const tempTotalCostSum = tempTotalCost.reduce((total, element) => {
+        return total + element;
+      });
+      const tempPerGalSum = tempPerGal.reduce((total, element) => {
+        return total + element;
+      });
+      setUserMPG((tempMilesSum / tempGallonsSum).toFixed(1));
+      setTotalCostofGas(tempTotalCostSum.toFixed(2));
+      setGasVolumeTotal(tempGallonsSum.toFixed(1));
+      setAvgPerGalCost((tempPerGalSum / fillups.length).toFixed(2));
+      setTotalMiles(tempMilesSum);
+    }
+    if (maintenanceRecords.length > 0) {
+      const tempTotalCostArray = maintenanceRecords?.map((record, i) => {
+        return record.total_cost;
+      });
+      const tempTotalCostSum = tempTotalCostArray?.reduce((total, element) => {
+        return total + element;
+      });
+      setTotalCostofMaintenance(tempTotalCostSum);
+    }
+    getsharedInfo();
+  }
+
+  function getsharedInfo() {
+    if (maintenanceRecords.length > 0 && fillups.length > 0) {
+      const tempTotalCostArray = maintenanceRecords?.map((record, i) => {
+        return record.total_cost;
+      });
+      const tempTotalMaintCostSum = tempTotalCostArray?.reduce(
+        (total, element) => {
+          return total + element;
+        }
+      );
+      const tempTotalCost = fillups?.map((fillup, i) => {
+        return fillup.total_cost;
+      });
+      const tempTotalFUCostSum = tempTotalCost.reduce((total, element) => {
+        return total + element;
+      });
+      const tempMiles = fillups?.map((fillup, i) => {
+        return fillup.odometer - fillup.prev_odometer;
+      });
+      const tempMilesSum = tempMiles.reduce((total, element) => {
+        return total + element;
+      });
+      setOwnershipCost((tempTotalMaintCostSum + tempTotalFUCostSum).toFixed(2));
+      setAvgPerMileCost(
+        ((tempTotalMaintCostSum + tempTotalFUCostSum) / tempMilesSum).toFixed(2)
+      );
+    } else if (fillups.length > 0) {
+      const tempTotalCost = fillups?.map((fillup, i) => {
+        return fillup.total_cost;
+      });
+      const tempTotalFUCostSum = tempTotalCost.reduce((total, element) => {
+        return total + element;
+      });
+      const tempMiles = fillups?.map((fillup, i) => {
+        return fillup.odometer - fillup.prev_odometer;
+      });
+      const tempMilesSum = tempMiles.reduce((total, element) => {
+        return total + element;
+      });
+      setOwnershipCost(tempTotalFUCostSum.toFixed(2));
+      setAvgPerMileCost((tempTotalFUCostSum / tempMilesSum).toFixed(2));
+    } else if (maintenanceRecords.length > 0) {
+      const tempTotalCostArray = maintenanceRecords?.map((record, i) => {
+        return record.total_cost;
+      });
+      const tempTotalMaintCostSum = tempTotalCostArray?.reduce(
+        (total, element) => {
+          return total + element;
+        }
+      );
+      const tempMiles = maintenanceRecords?.map((record, i) => {
+        return maintenanceRecords.odometer - maintenanceRecords.prev_odometer;
+      });
+      const tempMilesSum = tempMiles.reduce((total, element) => {
+        return total + element;
+      });
+      setOwnershipCost(tempTotalMaintCostSum.toFixed(2));
+      setAvgPerMileCost((tempTotalMaintCostSum / tempMilesSum).toFixed(2));
     }
   }
 
+  const findActiveVehicles = () => {
+    let tempActiveVehicles = vehicles.filter((vehicle) => {
+      if (vehicle.active === true) {
+        return vehicle;
+      }
+    });
+    setActivatedVehicles(tempActiveVehicles);
+  };
+
   // Console Logs:
+  console.log("Activated Vehicles", activatedVehicles);
   console.log("User Vehicles", vehicles);
   console.log("User Fillups", fillups);
-  console.log("User Fillups Total", findTotalCostofGas());
+  console.log("User Fillups Total", totalCostofGas);
   console.log("User Maintenance Records", maintenanceRecords);
-  console.log("User Maintenance Records Total", findTotalCostofMaintenace());
+  console.log("User Maintenance Records Total", totalCostofMaintenance);
 
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
+      <h1>{user.first_name}, this is your garage.</h1>
       {vehicles && (
         <div>
-          <h3>Here is your collective vehicle information.</h3>
-          <p>Total Spent on Gas = {findTotalCostofGas()}</p>
-          <p>Total Spent on Maintenance = {findTotalCostofMaintenace()}</p>
-          {/* <p>Total Gallons of Gas Bought = {userFillupsTotal}</p> */}
-          {/* <p>Total Miles Driven = {userFillupsTotal}</p> */}
-          {/* <p>Average Spent Per Gallon of Gas = {userFillupsTotal}</p> */}
-          {/* <p>Average Cost Per Mile Driven = {userFillupsTotal}</p> */}
-          {vehicles.map((vehicle) => (
-            <p key={vehicle.id}>
-              {`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-
-              {console.log("Model", vehicle.model)}
-            </p>
-          ))}
+          <h3>Here you will see your overall information.</h3>
+          <h4>Active Vehicles in Your Garage:</h4>
+          <div>
+            {activatedVehicles?.map((vehicle, i) => {
+              return (
+                <p key={i}>
+                  {`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                </p>
+              );
+            })}
+          </div>
+          <h4>Total Costs:</h4>
+          <p>Total Cost of Ownership: ${ownershipCost}</p>
+          <div className="cost-chart">
+            {fillups.length > 0 && (
+              <CostLineChart
+                props={fillups}
+                lineData={"Cost per Fill-up"}
+                chartTitle={`Total Spent on Gas: $${totalCostofGas}`}
+                chartSubTitle={"This chart displays each fill-up's cost."}
+              />
+            )}
+            {maintenanceRecords.length > 0 && (
+              <CostLineChart
+                props={maintenanceRecords}
+                lineData={"Cost per Record"}
+                chartTitle={`Total Spent on Maintenance: $${totalCostofMaintenance}`}
+                chartSubTitle={
+                  "This chart displays each maintenance record's cost."
+                }
+              />
+            )}
+          </div>
+          <h4>Other Totals:</h4>
+          <p>Total Gallons of Gas Bought: {gasVolumeTotal} Gallons</p>
+          <p>Total Miles Driven: {totalMiles}mi</p>
+          <h4>Averages:</h4>
+          <p>Average Miles Per Gallon From All Vehicles: {userMPG}mi </p>
+          <p>Average Spent Per Gallon of Gas: ${avgPerGalCost}</p>
+          <p>Average Cost Per Mile Driven: ${avgPerMileCost}</p>
         </div>
       )}
     </div>
@@ -158,12 +254,3 @@ const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
 };
 
 export default HomePage;
-
-{
-  /* {cars &&
-cars.map((car) => (
-  <p key={car.id}>
-  {car.year} {car.model} {car.make}
-  </p>
-))} */
-}
