@@ -4,87 +4,88 @@ import {
   LoadScript,
   Marker,
   InfoWindow,
+  Autocomplete,
 } from "@react-google-maps/api";
-import { GOOGLE_MAPS_API_KEY } from "../../utils/API_KEYS";
+import { REACT_APP_GOOGLE_MAPS_API_KEY } from "../../utils/API_KEY.js";
 
-const GasStationMap = ({}) => {
+import "@reach/combobox/styles.css";
+
+const libraries=["places"]
+
+const GasStationMap = ({
+  address,
+  setAddress,
+  coordinates,
+  setCoordinates,
+}) => {
+  // State Variables:
   const [selected, setSelected] = useState({});
+  const [locations, setLocations] = useState([]);
+  const [autocomplete, setAutoComplete] = useState(null);
 
-  const locations = [
-    {
-      name: "Location 1",
-      location: {
-        lat: 41.3954,
-        lng: 2.162,
-      },
-    },
-    {
-      name: "Location 2",
-      location: {
-        lat: 41.3917,
-        lng: 2.1649,
-      },
-    },
-    {
-      name: "Location 3",
-      location: {
-        lat: 41.3773,
-        lng: 2.1585,
-      },
-    },
-    {
-      name: "Location 4",
-      location: {
-        lat: 41.3797,
-        lng: 2.1682,
-      },
-    },
-    {
-      name: "Location 5",
-      location: {
-        lat: 41.4055,
-        lng: 2.1915,
-      },
-    },
-  ];
+  function onLoad(autocomplete) {
+    console.log("autocomplete: ", autocomplete);
 
-  const onSelect = (item) => {
-    setSelected(item);
+    setAutoComplete(autocomplete);
+  }
+
+  function onPlaceChanged() {
+    if (autocomplete !== null) {
+      let temp = autocomplete.getPlace();
+      console.log(temp);
+      console.log("lat", temp.geometry.location.lat());
+      console.log("lng", temp.geometry.location.lng());
+      setCoordinates({
+        lat: temp.geometry.location.lat(),
+        lng: temp.geometry.location.lng(),
+      });
+    } else {
+      console.log("Autocomplete is not loaded yet!");
+    }
+  }
+
+  const onError = (status, clearSuggestions) => {
+    console.log("Google Maps API returned error with status: ", status);
+    clearSuggestions();
   };
 
-  const mapStyles = {
-    height: "75vh",
-    width: "85%",
-  };
-
-  const defaultCenter = {
-    lat: 41.3851,
-    lng: 2.1734,
-  };
-
+  console.log("coordinates", coordinates);
+  console.log("address", address);
   return (
-    <LoadScript googleMapsApiKey={`${GOOGLE_MAPS_API_KEY}`}>
-      <GoogleMap mapContainerStyle={mapStyles} zoom={8} center={defaultCenter}>
-        {locations.map((item) => {
-          return (
-            <Marker
-              key={item.name}
-              position={item.location}
-              onClick={() => onSelect(item)}
+    <div>
+      <LoadScript
+        googleMapsApiKey={REACT_APP_GOOGLE_MAPS_API_KEY}
+        libraries={libraries}
+      >
+        <GoogleMap
+          mapContainerStyle={{ width: "90vh", height: "80vh" }}
+          center={coordinates}
+          zoom={10}
+        >
+          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+            <input
+              type="text"
+              placeholder="Enter your location"
+              style={{
+                boxSizing: `border-box`,
+                border: `1px solid transparent`,
+                width: `240px`,
+                height: `32px`,
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`,
+                position: "absolute",
+                left: "50%",
+                marginLeft: "-120px",
+              }}
             />
-          );
-        })}
-        {selected.location && (
-          <InfoWindow
-            position={selected.location}
-            clickable={true}
-            onCloseClick={() => setSelected({})}
-          >
-            <p>{selected.name}</p>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </LoadScript>
+          </Autocomplete>
+        </GoogleMap>
+      </LoadScript>
+    </div>
   );
 };
 
