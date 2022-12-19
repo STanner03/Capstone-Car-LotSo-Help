@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import VehiclePage from "./pages/VehiclePage/VehiclePage";
+import MapsPage from "./pages/MapsPage/MapsPage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -63,6 +64,14 @@ function App() {
                 activeVehicle={activeVehicle}
                 setModalFormTitle={setModalFormTitle}
               />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/maps/*"
+          element={
+            <PrivateRoute>
+              <MapsPage />
             </PrivateRoute>
           }
         />

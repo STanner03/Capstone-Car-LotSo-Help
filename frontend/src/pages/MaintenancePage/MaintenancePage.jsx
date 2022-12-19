@@ -80,6 +80,10 @@ const MaintenancePage = ({
     }
   };
 
+  const handleOpenMap = () => {
+    navigate("/maps/maintenance")
+  }
+
   return (
     <div>
       <div>
@@ -89,6 +93,7 @@ const MaintenancePage = ({
         <button onClick={handleAddService}>
           Add Maintenance Service Record
         </button>
+        <button onClick={handleOpenMap}>Open Map to See Local Shops</button>
       </div>
       <div>
         {vehicleMaintenance?.map((maintenance, i) => (

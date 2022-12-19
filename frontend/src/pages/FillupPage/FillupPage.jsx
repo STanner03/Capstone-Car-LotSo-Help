@@ -84,6 +84,10 @@ const FillupPage = ({
     }
   };
 
+  const handleOpenGasMap = () => {
+    navigate("/maps/gas");
+  };
+
   return (
     <div>
       <div>
@@ -93,6 +97,9 @@ const FillupPage = ({
         <p>Average Cost per Fill-up: ${aveCostPerFillup}</p>
         <p>Total Amount Spent on Fuel: ${totalCost}</p>
         <button onClick={handleAddFillup}>Add Fill-up Record</button>
+        <button onClick={handleOpenGasMap}>
+          Open Map to See Gas Stations Nearby
+        </button>
       </div>
       <div>
         {vehicleFillups?.map((fillup, i) => (

@@ -107,7 +107,6 @@ const VehiclePage = ({
   return (
     <div>
       <h1>{activeVehicle.name}</h1>
-      {/* <p>Name: {activeVehicle.name}</p> */}
       <p>
         {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
       </p>
