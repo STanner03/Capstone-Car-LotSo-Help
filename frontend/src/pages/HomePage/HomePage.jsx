@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import CostLineChart from "../../components/CostLineChart/CostLineChart.jsx";
+import "./HomePage.css";
 
 const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -194,32 +195,33 @@ const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
     setActivatedVehicles(tempActiveVehicles);
   };
 
-  // Console Logs:
-  console.log("Activated Vehicles", activatedVehicles);
-  console.log("User Vehicles", vehicles);
-  console.log("User Fillups", fillups);
-  console.log("User Fillups Total", totalCostofGas);
-  console.log("User Maintenance Records", maintenanceRecords);
-  console.log("User Maintenance Records Total", totalCostofMaintenance);
-
   return (
-    <div className="container">
-      <h1>{user.first_name}, this is your garage.</h1>
+    <div>
       {vehicles && (
-        <div>
-          <h3>Here you will see your overall information.</h3>
-          <h4>Active Vehicles in Your Garage:</h4>
+        <div className="home-style">
           <div>
-            {activatedVehicles?.map((vehicle, i) => {
-              return (
-                <p key={i}>
-                  {`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                </p>
-              );
-            })}
+            <h1>{user.first_name}, this is your garage.</h1>
+            <h3>Here you will see your overall information.</h3>
+            <h3>Active Vehicles in Your Garage:</h3>
+            <div className="vehicles">
+              {activatedVehicles?.map((vehicle, i) => {
+                return (
+                  <p key={i}>
+                    {`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                  </p>
+                );
+              })}
+            </div>
+            <h3>Averages:</h3>
+            <p>Average Miles Per Gallon From All Vehicles: {userMPG}mi </p>
+            <p>Average Spent Per Gallon of Gas: ${avgPerGalCost}</p>
+            <p>Average Cost Per Mile Driven: ${avgPerMileCost}</p>
+            <h3>Total Costs:</h3>
+            <p>Total Cost of Ownership: ${ownershipCost}</p>
+            <h3>Other Totals:</h3>
+            <p>Total Gallons of Gas Bought: {gasVolumeTotal} Gallons</p>
+            <p>Total Miles Driven: {totalMiles}mi</p>
           </div>
-          <h4>Total Costs:</h4>
-          <p>Total Cost of Ownership: ${ownershipCost}</p>
           <div className="cost-chart">
             {fillups.length > 0 && (
               <CostLineChart
@@ -240,13 +242,6 @@ const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
               />
             )}
           </div>
-          <h4>Other Totals:</h4>
-          <p>Total Gallons of Gas Bought: {gasVolumeTotal} Gallons</p>
-          <p>Total Miles Driven: {totalMiles}mi</p>
-          <h4>Averages:</h4>
-          <p>Average Miles Per Gallon From All Vehicles: {userMPG}mi </p>
-          <p>Average Spent Per Gallon of Gas: ${avgPerGalCost}</p>
-          <p>Average Cost Per Mile Driven: ${avgPerMileCost}</p>
         </div>
       )}
     </div>

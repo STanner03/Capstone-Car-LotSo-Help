@@ -1,4 +1,25 @@
+.home-style {
+    display: flex;
+    text-align: center;
+    color: antiquewhite;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.home-style h3 {
+    margin: 5px;
+}
+
 .cost-chart{
     display: flex;
-    
+    margin: 10px;
+    width: 60vw;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.vehicles {
+    margin: 10px;
 }

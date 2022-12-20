@@ -101,8 +101,8 @@ const VehiclePage = ({
   };
 
   // Console Logs:
-  console.log("Active Vehicle... Active?", activeVehicle.active);
-  console.log("Vehicle Maintenance", vehicleMaintenance);
+  // console.log("Active Vehicle... Active?", activeVehicle.active);
+  // console.log("Vehicle Maintenance", vehicleMaintenance);
 
   return (
     <div>

@@ -30,7 +30,7 @@ function App() {
   const handleClose = () => setShowModal(false);
 
   return (
-    <div>
+    <div className="background" >
       <Navbar
         vehicles={vehicles}
         setShowModal={setShowModal}
@@ -68,7 +68,7 @@ function App() {
           }
         />
         <Route
-          path="/maps/*"
+          path="/maps"
           element={
             <PrivateRoute>
               <MapsPage />

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"); */
 
 *,
 *::before,
@@ -15,6 +15,16 @@ html {
 
 p {
   font-size: 20px;
+}
+
+.background {
+  background: url(./Assets/background.png);
+  background-repeat: no-repeat;
+  background-color: #cccccc;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
 }
 
 button {
@@ -35,8 +45,8 @@ button:hover {
 
 .container {
   margin: 0 auto;
-  max-width: 95%;
-  overflow: auto;
+  /* max-width: 95%; */
+  /* overflow: auto; */
   text-align: center;
 }
 

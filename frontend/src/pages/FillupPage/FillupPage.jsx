@@ -85,7 +85,7 @@ const FillupPage = ({
   };
 
   const handleOpenGasMap = () => {
-    navigate("/maps/gas");
+    navigate("/maps");
   };
 
   return (

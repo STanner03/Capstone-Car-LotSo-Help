@@ -81,7 +81,7 @@ const MaintenancePage = ({
   };
 
   const handleOpenMap = () => {
-    navigate("/maps/maintenance")
+    navigate("/maps")
   }
 
   return (

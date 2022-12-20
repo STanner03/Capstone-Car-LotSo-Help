@@ -6,14 +6,7 @@ const CostLineChart = ({ props, lineData, chartTitle, chartSubTitle }) => {
     return [prop.date, prop.total_cost];
   });
 
-  console.log("Table Data", tableData)
-  console.log("Props", props)
-
-  const data = [
-    ["date", lineData],
-    ...tableData,
-
-  ];
+  const data = [["date", lineData], ...tableData];
 
   const options = {
     chart: {

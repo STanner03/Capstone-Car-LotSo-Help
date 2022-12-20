@@ -1,4 +1,14 @@
+h2 {
+  display: flex;
+  justify-content: center;
+}
+
 .maps-style {
   display: flex;
   justify-content: center;
+  margin: 10px;
+}
+
+.table-style {
+  padding-left: 10px;
 }
