@@ -2,6 +2,7 @@
 import { useState } from "react";
 import DeleteMaintenanceForm from "../forms/MaintenanceForms/DeleteMaintenanceForm/DeleteMaintenanceForm.jsx";
 import EditMaintenanceForm from "../forms/MaintenanceForms/EditMaintenanceForm/EditMaintenanceForm.jsx";
+import "./MaintenanceRecord.css";
 
 const MaintenanceRecord = ({
   i,
@@ -46,14 +47,28 @@ const MaintenanceRecord = ({
     console.log("Active Maintenance", maintenance);
   };
   return (
-    <div>
-      <button onClick={handleSelect}>
-        <h2>
-          Maintenance Record #{i}, {maintenance.date}
-        </h2>
-        <p>Shop: {maintenance.shop_name}</p>
-        <p>Odometer: {maintenance.odometer} miles</p>
-        <p>Total: ${maintenance.total_cost}</p>
+    <div className="mr-style">
+      <button className="mr-but" onClick={handleSelect}>
+        <table>
+          <thead>
+            <h2>
+              Maintenance Record #{i}, {maintenance.date}
+            </h2>
+          </thead>
+          <td>
+            <tr>
+              <td>
+                <p>Shop: {maintenance.shop_name}</p>
+              </td>
+              <td>
+                <p>Odometer: {maintenance.odometer} miles</p>
+              </td>
+              <td>
+                <p>Total: ${maintenance.total_cost}</p>
+              </td>
+            </tr>
+          </td>
+        </table>
       </button>
       {show && (
         <table>

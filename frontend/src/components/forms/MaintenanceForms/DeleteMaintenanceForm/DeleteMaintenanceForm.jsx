@@ -41,10 +41,12 @@ const DeleteMaintenanceForm = ({
   };
 
   return (
-    <div>
+    <div className="form-style">
       <div>Are you sure you want to DELETE this record FOREVER?</div>
       <div>
-        <button onClick={handleCancel}>Cancel</button>
+        <button className="cncl-btn" onClick={handleCancel}>
+          Cancel
+        </button>
         <button onClick={handleDelete}>Confirm</button>
       </div>
     </div>

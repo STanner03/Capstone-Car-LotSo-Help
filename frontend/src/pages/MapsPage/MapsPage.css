@@ -1,14 +1,29 @@
 h2 {
   display: flex;
   justify-content: center;
+  color: yellow;
 }
 
 .maps-style {
   display: flex;
   justify-content: center;
   margin: 10px;
+  background-color: rgba(255, 2, 2, 0.514);
 }
 
 .table-style {
   padding-left: 10px;
+  color: yellow;
+}
+
+.map-th-style {
+  font-size: 18px;
+}
+
+.map-row-1 {
+  background-color: rgba(255, 255, 240, 0.274);
+}
+
+.map-row-2 {
+  background-color: rgba(0, 0, 0, 0.322);
 }

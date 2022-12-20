@@ -86,7 +86,7 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form-style" onSubmit={handleSubmit}>
       <div>
         <label>
           Station
@@ -164,8 +164,12 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
       </div>
       <p>**MUST FILL OUT ALL FIELDS**</p>
       <div>
-        <button onClick={handleCancel}>CANCEL</button>
-        <button type="submit">SAVE</button>
+        <button className="cncl-btn" onClick={handleCancel}>
+          CANCEL
+        </button>
+        <button className="save-btn" type="submit">
+          SAVE
+        </button>
       </div>
     </form>
   );

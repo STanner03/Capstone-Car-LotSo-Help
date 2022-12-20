@@ -2,6 +2,7 @@
 import { useState } from "react";
 import DeleteFillupForm from "../forms/FillupForms/DeleteFillupForm/DeleteFillupForm";
 import EditFillupForm from "../forms/FillupForms/EditFillupForm/EditFillupForm";
+import "./FillupRecord.css";
 
 const FillupRecord = ({
   i,
@@ -46,22 +47,24 @@ const FillupRecord = ({
   };
 
   return (
-    <div>
-      <table onClick={handleSelect}>
-        <thead>
-          <h2>
-            Fill-up #{i}, {fillup.date}
-          </h2>
-        </thead>
-        <td>
-          <tr>
-            <td>Gal Price: ${fillup.fuel_price_per_gallon}</td>
-            <td>Volume: {fillup.fuel_volume}</td>
-            <td>Total: ${fillup.total_cost}</td>
-            <td>MPG:{fillup.mpg}</td>
-          </tr>
-        </td>
-      </table>
+    <div className="fur-style">
+      <button className="fur-but" onClick={handleSelect}>
+        <table>
+          <thead>
+            <h2>
+              Fill-up #{i}, {fillup.date}
+            </h2>
+          </thead>
+          <td>
+            <tr>
+              <td>Gal Price: ${fillup.fuel_price_per_gallon}</td>
+              <td>Volume: {fillup.fuel_volume}</td>
+              <td>Total: ${fillup.total_cost}</td>
+              <td>MPG:{fillup.mpg}</td>
+            </tr>
+          </td>
+        </table>
+      </button>
       {show && (
         <table>
           <thead>

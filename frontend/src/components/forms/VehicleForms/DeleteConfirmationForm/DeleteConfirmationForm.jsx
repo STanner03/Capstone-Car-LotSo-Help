@@ -37,13 +37,17 @@ const DeleteConfirmationForm = ({ setShowModal, activeVehicle }) => {
   };
 
   return (
-    <form action="delete">
+    <form className="form-style" action="delete">
       <p>
         Are you SURE you want to permanantly DELETE "{activeVehicle.name}" from
         your garage?
       </p>
-      <button onClick={handleAbort}>Abort</button>
-      <button onClick={handleDelete}>DELETE</button>
+      <div>
+        <button className="cncl-btn" onClick={handleAbort}>
+          Abort
+        </button>
+        <button onClick={handleDelete}>DELETE</button>
+      </div>
     </form>
   );
 };

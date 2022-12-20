@@ -1,0 +1,16 @@
+.fup-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fup-style p {
+    margin: 5px;
+    font-size: 2rem;
+}
+
+.fup-style-rec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

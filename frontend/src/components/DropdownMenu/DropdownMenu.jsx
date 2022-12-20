@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ArrowDropDownTwoToneIcon from "@mui/icons-material/ArrowDropDownTwoTone";
 import ArrowDropUpTwoToneIcon from "@mui/icons-material/ArrowDropUpTwoTone";
-import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import VehicleList from "./VehicleList/VehicleList.jsx";
 import "./DropdownMenu.css";
 import AddVehicleForm from "../forms/VehicleForms/AddVehicleForm/AddVehicleForm.jsx";

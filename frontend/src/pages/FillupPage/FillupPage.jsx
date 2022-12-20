@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FillupRecord from "../../components/FillupRecord/FillupRecord";
 import CreateFillupForm from "../../components/forms/FillupForms/CreateFillupForm/CreateFillupForm";
+import "./FillupPage.css";
 
 const FillupPage = ({
   setShowModal,
@@ -90,7 +91,7 @@ const FillupPage = ({
 
   return (
     <div>
-      <div>
+      <div className="fup-style">
         <p>Average Miles per Gallon: {vehicleMPG}</p>
         <p>Average Miles per Fill-up: {aveMiPerFillup}</p>
         <p>Average Gallons per Fill-up: {aveGalPerFillup}</p>
@@ -101,7 +102,7 @@ const FillupPage = ({
           Open Map to See Gas Stations Nearby
         </button>
       </div>
-      <div>
+      <div className="fup-style-rec">
         {vehicleFillups?.map((fillup, i) => (
           <FillupRecord
             key={i}

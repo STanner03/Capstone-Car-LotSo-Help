@@ -18,11 +18,11 @@ li {
 }
 
 .button {
-  /* background: transparent; */
+  background: transparent;
   border: 2px solid white;
   color: white;
   padding: 0.4rem 0.5rem;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .button:hover {

@@ -17,6 +17,9 @@ import MaintenancePage from "../MaintenancePage/MaintenancePage";
 import useAuth from "../../hooks/useAuth";
 import PrivateRoute from "../../utils/PrivateRoute";
 
+// CSS Import:
+import "./VehiclePage.css";
+
 const VehiclePage = ({
   setShowModal,
   setModalForm,
@@ -100,23 +103,31 @@ const VehiclePage = ({
     navigate("/vehicle/maintenance");
   };
 
-  // Console Logs:
-  // console.log("Active Vehicle... Active?", activeVehicle.active);
-  // console.log("Vehicle Maintenance", vehicleMaintenance);
-
   return (
-    <div>
-      <h1>{activeVehicle.name}</h1>
-      <p>
-        {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
-      </p>
-      <p>{activeVehicle.odometer} Miles driven</p>
-      <p>Type: {activeVehicle.type}</p>
-      <p>Active: {activeVehicle.active ? <CheckIcon /> : <CloseIcon />}</p>
-      <button onClick={handleEditVehicle}>Edit Vehicle</button>
-      <button onClick={handleDelete}>DELETE Vehicle</button>
-      <button onClick={handleShowFillups}>Show Fill-up Records</button>
-      <button onClick={handleShowMaintenance}>Show Maintenance Records</button>
+    <div className="vp-style">
+      <table>
+        <tr>
+          <td>
+            {activeVehicle.name}
+          </td>
+          <td>
+            {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
+          </td>
+          <td>{activeVehicle.odometer} Miles driven</td>
+          <td>Type: {activeVehicle.type}</td>
+          <td>
+            Active: {activeVehicle.active ? <CheckIcon /> : <CloseIcon />}
+          </td>
+        </tr>
+      </table>
+      <div>
+        <button onClick={handleEditVehicle}>Edit Vehicle</button>
+        <button onClick={handleDelete}>DELETE Vehicle</button>
+        <button onClick={handleShowFillups}>Show Fill-up Records</button>
+        <button onClick={handleShowMaintenance}>
+          Show Maintenance Records
+        </button>
+      </div>
       <Routes>
         <Route
           path="/fillup"

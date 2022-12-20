@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateMaintenanceForm from "../../components/forms/MaintenanceForms/CreateMaintenanceForm/CreateMaintenanceForm";
 import MaintenanceRecord from "../../components/MaintenanceRecord/MaintenanceRecord";
+import "./MaintenancePage.css";
 
 const MaintenancePage = ({
   setShowModal,
@@ -81,12 +82,12 @@ const MaintenancePage = ({
   };
 
   const handleOpenMap = () => {
-    navigate("/maps")
-  }
+    navigate("/maps");
+  };
 
   return (
     <div>
-      <div>
+      <div className="mp-style">
         <p>Miles Since last Service {lastServiceMi} mi</p>
         <p>Average Service Cost ${avgServiceCost} </p>
         <p>Total Spent on Maintenance ${totalServiceCost}</p>
@@ -95,7 +96,7 @@ const MaintenancePage = ({
         </button>
         <button onClick={handleOpenMap}>Open Map to See Local Shops</button>
       </div>
-      <div>
+      <div className="mp-style-rec">
         {vehicleMaintenance?.map((maintenance, i) => (
           <MaintenanceRecord
             key={i}

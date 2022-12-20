@@ -1,0 +1,16 @@
+.fur-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(58, 5, 5, 0.507);
+}
+
+.fur-but {
+    display: flex;
+    width: 95vw;
+    justify-content: center;
+}
+
+.fur-style td {
+    font-size: 1rem;
+}

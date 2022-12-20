@@ -68,7 +68,7 @@ const MapsPage = ({}) => {
   console.log("Best Locations", bestRatedLocations);
 
   return (
-    <div>
+    <div className="map-page-style">
       <h2>Search For Local Businesses</h2>
       <div className="maps-style">
         <div>
@@ -116,7 +116,7 @@ const MapsPage = ({}) => {
                       lat: item.geometry.location.lat(),
                       lng: item.geometry.location.lng(),
                     }}
-                    onClick={(() => onSelect(item))}
+                    onClick={() => onSelect(item)}
                   />
                 );
               })}
@@ -127,7 +127,7 @@ const MapsPage = ({}) => {
           {bestRatedLocations.length > 0 && (
             <table className="table-style">
               <thead>
-                <tr>
+                <tr className="map-th-style">
                   <td></td>
                   <td>Business Name</td>
                   <td>Rating</td>
@@ -137,7 +137,7 @@ const MapsPage = ({}) => {
               <tbody>
                 {bestRatedLocations.map((location, i) => {
                   return (
-                    <tr>
+                    <tr className={(i + 1) % 2 ? "map-row-2" : "map-row-1"}>
                       <td>{i + 1}. </td>
                       <td>{location.name}</td>
                       <td>{location.rating}</td>

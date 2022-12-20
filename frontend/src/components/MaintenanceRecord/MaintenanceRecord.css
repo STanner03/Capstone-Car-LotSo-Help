@@ -1,0 +1,16 @@
+.mr-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(58, 5, 5, 0.507);
+}
+
+.mr-but {
+  display: flex;
+  width: 95vw;
+  justify-content: center;
+}
+
+.mr-style td {
+  font-size: 1rem;
+}
