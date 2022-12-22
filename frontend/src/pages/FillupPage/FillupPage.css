@@ -5,8 +5,12 @@
 }
 
 .fup-style p {
-    margin: 5px;
+    display: flex;
+    padding: 5px;
     font-size: 2rem;
+    background-color: rgba(58, 5, 5, 0.350);
+    min-width: 660px;
+    justify-content: center;
 }
 
 .fup-style-rec {

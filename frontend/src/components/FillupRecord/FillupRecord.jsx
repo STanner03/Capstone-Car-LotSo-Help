@@ -51,9 +51,11 @@ const FillupRecord = ({
       <button className="fur-but" onClick={handleSelect}>
         <table>
           <thead>
-            <h2>
-              Fill-up #{i}, {fillup.date}
-            </h2>
+            <tr>
+              <td>
+                Fill-up #{i}, {fillup.date}
+              </td>
+            </tr>
           </thead>
           <td>
             <tr>

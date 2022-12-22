@@ -105,7 +105,7 @@ const VehiclePage = ({
 
   return (
     <div className="vp-style">
-      <table>
+      <table className="vp-table">
         <tr>
           <td>
             {activeVehicle.name}

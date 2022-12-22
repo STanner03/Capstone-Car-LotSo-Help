@@ -1,16 +1,20 @@
 .mp-style {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .mp-style p {
-    margin: 5px;
-    font-size: 2rem;
+  display: flex;
+  padding: 5px;
+  font-size: 2rem;
+  background-color: rgba(58, 5, 5, 0.35);
+  min-width: 660px;
+  justify-content: center;
 }
 
 .mp-style-rec {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

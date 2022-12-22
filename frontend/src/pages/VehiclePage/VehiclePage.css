@@ -5,6 +5,11 @@
     align-items: center;
 }
 
+.vp-table {
+    background-color: rgba(58, 5, 5, 0.507);
+    border-radius: 50px;
+}
+
 .vp-style td {
     padding: 25px;
     font-size: 2rem;

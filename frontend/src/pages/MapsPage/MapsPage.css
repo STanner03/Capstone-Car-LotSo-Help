@@ -9,6 +9,7 @@ h2 {
   justify-content: center;
   margin: 10px;
   background-color: rgba(255, 2, 2, 0.514);
+  max-width: auto;
 }
 
 .table-style {

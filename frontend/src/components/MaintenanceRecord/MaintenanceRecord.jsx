@@ -51,9 +51,9 @@ const MaintenanceRecord = ({
       <button className="mr-but" onClick={handleSelect}>
         <table>
           <thead>
-            <h2>
+            <td>
               Maintenance Record #{i}, {maintenance.date}
-            </h2>
+            </td>
           </thead>
           <td>
             <tr>
