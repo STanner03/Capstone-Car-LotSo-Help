@@ -90,7 +90,7 @@ const FillupPage = ({
   };
 
   return (
-    <div>
+    <div className="fup-style-rec">
       <div className="fup-style">
         <p>Average Miles per Gallon: {vehicleMPG}</p>
         <p>Average Miles per Fill-up: {aveMiPerFillup}</p>
@@ -102,7 +102,7 @@ const FillupPage = ({
           Open Map to See Gas Stations Nearby
         </button>
       </div>
-      <div className="fup-style-rec">
+      <div>
         {vehicleFillups?.map((fillup, i) => (
           <FillupRecord
             key={i}
