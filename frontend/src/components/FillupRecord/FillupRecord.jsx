@@ -13,7 +13,7 @@ const FillupRecord = ({
   activeVehicle,
 }) => {
   // State Variables:
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   // Handlers:
   const handleSelect = () => {
@@ -48,62 +48,62 @@ const FillupRecord = ({
 
   return (
     <div className="fur-style">
-      <button className="fur-but" onClick={handleSelect}>
-        <table>
-          <thead>
-            <tr>
-              <td>
-                Fill-up #{i}, {fillup.date}
-              </td>
-            </tr>
-          </thead>
-          <td>
-            <tr>
-              <td>Gal Price: ${fillup.fuel_price_per_gallon}</td>
-              <td>Volume: {fillup.fuel_volume}</td>
-              <td>Total: ${fillup.total_cost}</td>
-              <td>MPG:{fillup.mpg}</td>
-            </tr>
-          </td>
-        </table>
-      </button>
-      {show && (
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Price Gal</th>
-              <th>Volume</th>
-              <th>Total Price</th>
-              <th>Fuel Type/Grade</th>
-              <th>Previous Odometer</th>
-              <th>Odometer</th>
-              <th>MPG</th>
-              <th>Station/Location</th>
-              <th>Notes</th>
-              <th>
-                <button onClick={handleEditFillup}>Edit Fill-up</button>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{fillup.date}</td>
-              <td>${fillup.fuel_price_per_gallon}</td>
-              <td>{fillup.fuel_volume}</td>
-              <td>${fillup.total_cost}</td>
-              <td>{fillup.fuel_type}</td>
-              <td>{fillup.prev_odometer} Mi</td>
-              <td>{fillup.odometer} Mi</td>
-              <td>{fillup.mpg} Mi</td>
-              <td>{fillup.station_name}</td>
-              <td>{fillup.notes}</td>
-              <td>
-                <button onClick={handleDelete}>Delete Fill-up</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      {show ? (
+        <div>
+          <button onClick={handleSelect}>See Fill-up Details</button>
+          <table>
+            <td>
+              <tr>
+                <td>#{i}</td>
+                <td>Date: {fillup.date}</td>
+                <td>Gal Price: ${fillup.fuel_price_per_gallon}</td>
+                <td>Volume: {fillup.fuel_volume}</td>
+                <td>Total: ${fillup.total_cost}</td>
+                <td>MPG:{fillup.mpg}</td>
+              </tr>
+            </td>
+          </table>
+        </div>
+      ) : (
+        <div>
+          <button onClick={handleSelect}>Hide Details</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Price Gal</th>
+                <th>Volume</th>
+                <th>Total Price</th>
+                <th>Fuel Type/Grade</th>
+                <th>Previous Odometer</th>
+                <th>Odometer</th>
+                <th>MPG</th>
+                <th>Station/Location</th>
+                <th>Notes</th>
+                <th>
+                  <button onClick={handleEditFillup}>Edit Fill-up</button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{fillup.date}</td>
+                <td>${fillup.fuel_price_per_gallon}</td>
+                <td>{fillup.fuel_volume}</td>
+                <td>${fillup.total_cost}</td>
+                <td>{fillup.fuel_type}</td>
+                <td>{fillup.prev_odometer} Mi</td>
+                <td>{fillup.odometer} Mi</td>
+                <td>{fillup.mpg} Mi</td>
+                <td>{fillup.station_name}</td>
+                <td>{fillup.notes}</td>
+                <td>
+                  <button onClick={handleDelete}>Delete Fill-up</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

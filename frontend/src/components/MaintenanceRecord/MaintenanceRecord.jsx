@@ -13,7 +13,7 @@ const MaintenanceRecord = ({
   activeVehicle,
 }) => {
   // State Variables:
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   // Handlers:
   const handleSelect = () => {
@@ -50,25 +50,15 @@ const MaintenanceRecord = ({
     <div className="mr-style">
       {show ? (
         <div>
-          <button onClick={handleSelect}>See Details</button>
+          <button onClick={handleSelect}>See Record Details</button>
           <table>
             <td>
               <tr>
-                <td>
-                  <p>#{i}</p>
-                </td>
-                <td>
-                  <p>Date: {maintenance.date}</p>
-                </td>
-                <td>
-                  <p>Shop: {maintenance.shop_name}</p>
-                </td>
-                <td>
-                  <p>Odometer: {maintenance.odometer} miles</p>
-                </td>
-                <td>
-                  <p>Total: ${maintenance.total_cost}</p>
-                </td>
+                <td>#{i}</td>
+                <td>Date: {maintenance.date}</td>
+                <td>Shop: {maintenance.shop_name}</td>
+                <td>Odometer: {maintenance.odometer} miles</td>
+                <td>Total: ${maintenance.total_cost}</td>
               </tr>
             </td>
           </table>
