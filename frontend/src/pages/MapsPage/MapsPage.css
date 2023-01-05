@@ -1,30 +1,42 @@
-h2 {
+.map-page-style {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h2 {
   color: yellow;
+  background-color: rgba(58, 5, 5, 0.9);
+  border-radius: 50px;
+  padding: 15px;
+  width: fit-content;
 }
 
 .maps-style {
   display: flex;
   justify-content: center;
   margin: 10px;
-  background-color: rgba(255, 2, 2, 0.514);
+  background-color: rgba(128, 9, 9, 0.95);
   max-width: auto;
 }
 
 .table-style {
   padding-left: 10px;
   color: yellow;
+  font-size: 15px;
 }
 
 .map-th-style {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .map-row-1 {
-  background-color: rgba(255, 255, 240, 0.274);
+  background-color: rgba(255, 255, 240, 0.474);
+  color: black;
+  font-weight: 700;
 }
 
 .map-row-2 {
-  background-color: rgba(0, 0, 0, 0.322);
+  background-color: rgba(0, 0, 0, 0.422);
+  color: #ffff00c4;
 }

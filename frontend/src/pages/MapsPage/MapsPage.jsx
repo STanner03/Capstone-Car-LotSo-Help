@@ -17,10 +17,12 @@ const MapsPage = ({}) => {
   const [locations, setLocations] = useState([]);
   const [searchBox, setSearchBox] = useState([]);
   const [bestRatedLocations, setBestRatedLocations] = useState([]);
-  const [defaultCenter, setSetDefaultCenter] = useState({
+  const [defaultCenter, setDefaultCenter] = useState({
     lat: 43.1114948,
     lng: -91.0777817,
   });
+
+  console.log("Search Box", searchBox);
 
   // UseEffects:
   useEffect(() => {
@@ -37,10 +39,13 @@ const MapsPage = ({}) => {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     };
-    setSetDefaultCenter(coords);
+    setDefaultCenter(coords);
   };
   //
-  const onLoad = (ref) => setSearchBox(ref);
+  const onLoad = (ref) => {
+    setSearchBox(ref);
+    console.log("REF", ref);
+  };
   //
   const onPlaceChanged = () => {
     let results = searchBox.getPlaces();
@@ -49,23 +54,23 @@ const MapsPage = ({}) => {
   };
   function findBestLocations(props) {
     let openLocations = props?.filter((location) => {
-      console.log("Location", location);
+      // console.log("Location", location);
       if (props.length > 0 && location.business_status == "OPERATIONAL") {
         return location;
       }
     });
-    console.log("Open Locations", openLocations);
+    // console.log("Open Locations", openLocations);
     let tempLocations = openLocations.sort((a, b) => b.rating - a.rating);
-    console.log("Sorted Locations", tempLocations);
+    // console.log("Sorted Locations", tempLocations);
     let top10Locations = tempLocations.slice(0, 10);
-    console.log("Top 10 Locations", top10Locations);
+    // console.log("Top 10 Locations", top10Locations);
     setBestRatedLocations(top10Locations);
   }
 
   // Console Logs:
-  console.log("Locations", locations);
-  console.log("Selected", selected);
-  console.log("Best Locations", bestRatedLocations);
+  // console.log("Locations", locations);
+  // console.log("Selected", selected);
+  // console.log("Best Locations", bestRatedLocations);
 
   return (
     <div className="map-page-style">
@@ -137,7 +142,10 @@ const MapsPage = ({}) => {
               <tbody>
                 {bestRatedLocations.map((location, i) => {
                   return (
-                    <tr className={(i + 1) % 2 ? "map-row-2" : "map-row-1"}>
+                    <tr
+                      key={i}
+                      className={(i + 1) % 2 ? "map-row-2" : "map-row-1"}
+                    >
                       <td>{i + 1}. </td>
                       <td>{location.name}</td>
                       <td>{location.rating}</td>
