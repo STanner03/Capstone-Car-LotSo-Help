@@ -41,9 +41,24 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
           },
         }
       );
-      navigate("/vehicle");
+      navigate("/");
     } catch (error) {
       console.log(error, "Unable to Edit Record");
+    }
+  }
+  async function editVehicle(vehicle) {
+    try {
+      await axios.put(
+        `http://127.0.0.1:8000/api/vehicle/${activeVehicle.id}/update/`,
+        vehicle,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error, "Unable to Edit Vehicle");
     }
   }
 
@@ -62,6 +77,18 @@ const EditFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
       station_name: stationName,
       total_cost: cost,
     };
+    let tempVehicle = {
+      vin: activeVehicle.vin,
+      name: activeVehicle.name,
+      type: activeVehicle.type,
+      make: activeVehicle.make,
+      model: activeVehicle.model,
+      year: activeVehicle.year,
+      color: activeVehicle.color,
+      active: activeVehicle.active,
+      odometer: odometer,
+    };
+    editVehicle(tempVehicle);
     editFillup(tempFillup);
     setShowModal(false);
   }

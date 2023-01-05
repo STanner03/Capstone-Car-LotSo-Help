@@ -86,7 +86,7 @@ const MaintenancePage = ({
   };
 
   return (
-    <div className="mp-style-rec">
+    <div className="mp-style-pg">
       <div className="mp-style">
         <p>Miles Since last Service {lastServiceMi} mi</p>
         <p>Average Service Cost ${avgServiceCost} </p>
@@ -96,7 +96,7 @@ const MaintenancePage = ({
         </button>
         <button onClick={handleOpenMap}>Open Map to See Local Shops</button>
       </div>
-      <div>
+      <div className="mp-style-rec">
         {vehicleMaintenance?.map((maintenance, i) => (
           <MaintenanceRecord
             key={i}

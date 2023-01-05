@@ -106,19 +106,19 @@ const VehiclePage = ({
   return (
     <div className="vp-style">
       <table className="vp-table">
-        <tr>
-          <td>
-            {activeVehicle.name}
-          </td>
-          <td>
-            {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
-          </td>
-          <td>{activeVehicle.odometer} Miles driven</td>
-          <td>Type: {activeVehicle.type}</td>
-          <td>
-            Active: {activeVehicle.active ? <CheckIcon /> : <CloseIcon />}
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>{activeVehicle.name}</td>
+            <td>
+              {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
+            </td>
+            <td>{activeVehicle.odometer} Miles driven</td>
+            <td>Type: {activeVehicle.type}</td>
+            <td>
+              Active: {activeVehicle.active ? <CheckIcon /> : <CloseIcon />}
+            </td>
+          </tr>
+        </tbody>
       </table>
       <div>
         <button onClick={handleEditVehicle}>Edit Vehicle</button>

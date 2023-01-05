@@ -3,13 +3,18 @@ import axios from "axios";
 import useAuth from "../../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../../Modal/Modal";
 
-const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
+const CreateFillupForm = ({ setShowModal, activeVehicle, vehicleFillups }) => {
   // State Variables:
   const [user, token] = useAuth();
   const [stationName, setStationName] = useState("N/A");
-  const [odometer, setOdometer] = useState(activeVehicle.odometer);
-  const [prevOdometer] = useState(activeVehicle.odometer);
+  const [odometer, setOdometer] = useState(
+    vehicleFillups[vehicleFillups.length - 1].odometer
+  );
+  const [prevOdometer] = useState(
+    vehicleFillups[vehicleFillups.length - 1].odometer
+  );
   const [fuelType, setFuelType] = useState("");
   const [fuelPPG, setFuelPPG] = useState(0.0);
   const [fuelVolume, setFuelVolume] = useState(0.0);
@@ -17,6 +22,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
   const [cost, setCost] = useState(0.0);
   const [date, setDate] = useState("0000/00/00");
   const [notes, setNotes] = useState("No Notes");
+  const [show, setShow] = useState(false);
 
   // Variables:
   const navigate = useNavigate();
@@ -41,7 +47,6 @@ const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
           },
         }
       );
-      navigate("/vehicle");
     } catch (error) {
       console.log(error, "Unable to Create Record");
     }
@@ -93,6 +98,8 @@ const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
       editVehicle(tempVehicle);
       addFillup(tempFillup);
       setShowModal(false);
+    } else {
+      setShow(true);
     }
   }
 
@@ -114,6 +121,7 @@ const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
     setShowModal(false);
     navigate("/vehicle/fillup");
   };
+  const handleClose = () => setShow(false);
 
   return (
     <form className="form-style" onSubmit={handleSubmit}>
@@ -201,6 +209,13 @@ const CreateFillupForm = ({ setShowModal, activeVehicle }) => {
           SAVE
         </button>
       </div>
+      <Modal show={show} onClose={handleClose} title={"Invalid Input"}>
+        <div>
+          <p>Check Odometer Reading! </p>
+          <p>Value Below Vehicle Odometer.</p>
+          <button onClick={handleClose}>OK</button>
+        </div>
+      </Modal>
     </form>
   );
 };

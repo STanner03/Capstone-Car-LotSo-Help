@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../hooks/useAuth";
+import Modal from "../../../Modal/Modal";
 
 const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
   // State Variables:
@@ -15,6 +16,7 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
   const [totalCost, setTotalCost] = useState(0.0);
   const [date, setDate] = useState("0000/00/00");
   const [notes, setNotes] = useState("No Notes");
+  const [show, setShow] = useState(false);
 
   // Variables:
   const navigate = useNavigate();
@@ -31,7 +33,6 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
           },
         }
       );
-      navigate("/vehicle");
     } catch (error) {
       console.log(error, "Unable to Create Record");
     }
@@ -81,6 +82,8 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
       editVehicle(tempVehicle);
       addMaintenance(tempMaintenance);
       setShowModal(false);
+    } else {
+      setShow(true);
     }
   }
 
@@ -102,6 +105,7 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
     setShowModal(false);
     navigate("/vehicle/maintenance");
   };
+  const handleClose = () => setShow(false);
 
   // Console Logs:
 
@@ -189,6 +193,13 @@ const CreateMaintenanceForm = ({ setShowModal, activeVehicle }) => {
           SAVE
         </button>
       </div>
+      <Modal show={show} onClose={handleClose} title={"Invalid Input"}>
+        <div>
+          <p>Check Odometer Reading! </p>
+          <p>Value Below Vehicle Odometer.</p>
+          <button onClick={handleClose}>OK</button>
+        </div>
+      </Modal>
     </form>
   );
 };

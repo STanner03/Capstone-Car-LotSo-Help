@@ -18,7 +18,7 @@ const CostLineChart = ({ props, lineData, chartTitle, chartSubTitle }) => {
   return (
     <Chart
       chartType="Line"
-      width="100%"
+      width="98%"
       height="400px"
       data={data}
       options={options}

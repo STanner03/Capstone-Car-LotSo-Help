@@ -44,15 +44,15 @@ const MaintenanceRecord = ({
         activeVehicle={activeVehicle}
       />
     );
-    console.log("Active Maintenance", maintenance);
   };
+
   return (
     <div className="mr-style">
       {show ? (
         <div>
           <button onClick={handleSelect}>See Record Details</button>
           <table>
-            <td>
+            <tbody>
               <tr>
                 <td>#{i}</td>
                 <td>Date: {maintenance.date}</td>
@@ -60,7 +60,7 @@ const MaintenanceRecord = ({
                 <td>Odometer: {maintenance.odometer} miles</td>
                 <td>Total: ${maintenance.total_cost}</td>
               </tr>
-            </td>
+            </tbody>
           </table>
         </div>
       ) : (

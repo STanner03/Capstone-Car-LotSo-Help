@@ -21,7 +21,7 @@ const DeleteFillupForm = ({ fillup, setShowModal, activeVehicle }) => {
           },
         }
       );
-      navigate("/");
+      navigate("/vehicle");
     } catch (error) {
       console.log(error, "Unable to Delete Record");
     }

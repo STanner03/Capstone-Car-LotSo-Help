@@ -199,7 +199,7 @@ const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
     <div>
       {vehicles && (
         <div className="home-style">
-          <div>
+          <div className="home-style-bg">
             <h1>{user.first_name}, this is your garage.</h1>
             <h3>Here you will see your overall information.</h3>
             <h3>Active Vehicles in Your Garage:</h3>
@@ -223,24 +223,28 @@ const HomePage = ({ vehicles, setVehicles, activeVehicle }) => {
             <p>Total Miles Driven: {totalMiles}mi</p>
           </div>
           <div className="cost-chart">
-            {fillups.length > 0 && (
-              <CostLineChart
-                props={fillups}
-                lineData={"Cost per Fill-up"}
-                chartTitle={`Total Spent on Gas: $${totalCostofGas}`}
-                chartSubTitle={"This chart displays each fill-up's cost."}
-              />
-            )}
-            {maintenanceRecords.length > 0 && (
-              <CostLineChart
-                props={maintenanceRecords}
-                lineData={"Cost per Record"}
-                chartTitle={`Total Spent on Maintenance: $${totalCostofMaintenance}`}
-                chartSubTitle={
-                  "This chart displays each maintenance record's cost."
-                }
-              />
-            )}
+            <div>
+              {fillups.length > 0 && (
+                <CostLineChart
+                  props={fillups}
+                  lineData={"Cost per Fill-up"}
+                  chartTitle={`Total Spent on Gas: $${totalCostofGas}`}
+                  chartSubTitle={"This chart displays each fill-up's cost."}
+                />
+              )}
+            </div>
+            <div>
+              {maintenanceRecords.length > 0 && (
+                <CostLineChart
+                  props={maintenanceRecords}
+                  lineData={"Cost per Record"}
+                  chartTitle={`Total Spent on Maintenance: $${totalCostofMaintenance}`}
+                  chartSubTitle={
+                    "This chart displays each maintenance record's cost."
+                  }
+                />
+              )}
+            </div>
           </div>
         </div>
       )}

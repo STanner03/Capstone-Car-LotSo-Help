@@ -2,11 +2,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(58, 5, 5, 0.900);
+  background-color: rgba(58, 5, 5, 0.9);
   max-width: 660px;
   margin: 10px;
   border-radius: 10px;
+}
 
+.mp-style-pg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .mp-style p {
@@ -18,6 +23,6 @@
 
 .mp-style-rec {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
 }

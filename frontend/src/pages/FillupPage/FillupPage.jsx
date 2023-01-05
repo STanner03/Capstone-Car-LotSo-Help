@@ -68,6 +68,7 @@ const FillupPage = ({
         <CreateFillupForm
           setShowModal={setShowModal}
           activeVehicle={activeVehicle}
+          vehicleFillups={vehicleFillups}
         />
       );
     } else {
@@ -90,7 +91,7 @@ const FillupPage = ({
   };
 
   return (
-    <div className="fup-style-rec">
+    <div className="fup-style-pg">
       <div className="fup-style">
         <p>Average Miles per Gallon: {vehicleMPG}</p>
         <p>Average Miles per Fill-up: {aveMiPerFillup}</p>
@@ -102,7 +103,7 @@ const FillupPage = ({
           Open Map to See Gas Stations Nearby
         </button>
       </div>
-      <div>
+      <div className="fup-style-rec">
         {vehicleFillups?.map((fillup, i) => (
           <FillupRecord
             key={i}

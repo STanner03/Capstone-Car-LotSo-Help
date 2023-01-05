@@ -52,7 +52,7 @@ const FillupRecord = ({
         <div>
           <button onClick={handleSelect}>See Fill-up Details</button>
           <table>
-            <td>
+            <tbody>
               <tr>
                 <td>#{i}</td>
                 <td>Date: {fillup.date}</td>
@@ -61,7 +61,7 @@ const FillupRecord = ({
                 <td>Total: ${fillup.total_cost}</td>
                 <td>MPG:{fillup.mpg}</td>
               </tr>
-            </td>
+            </tbody>
           </table>
         </div>
       ) : (
@@ -75,8 +75,9 @@ const FillupRecord = ({
                 <th>Volume</th>
                 <th>Total Price</th>
                 <th>Fuel Type/Grade</th>
-                <th>Previous Odometer</th>
                 <th>Odometer</th>
+                <th>Previous Odometer</th>
+                <th>Miles Traveled</th>
                 <th>MPG</th>
                 <th>Station/Location</th>
                 <th>Notes</th>
@@ -92,9 +93,10 @@ const FillupRecord = ({
                 <td>{fillup.fuel_volume}</td>
                 <td>${fillup.total_cost}</td>
                 <td>{fillup.fuel_type}</td>
-                <td>{fillup.prev_odometer} Mi</td>
                 <td>{fillup.odometer} Mi</td>
-                <td>{fillup.mpg} Mi</td>
+                <td>{fillup.prev_odometer} Mi</td>
+                <td>{fillup.odometer - fillup.prev_odometer} Mi</td>
+                <td>{fillup.mpg} mpg</td>
                 <td>{fillup.station_name}</td>
                 <td>{fillup.notes}</td>
                 <td>
