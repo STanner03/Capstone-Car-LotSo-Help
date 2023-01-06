@@ -54,23 +54,14 @@ const MapsPage = ({}) => {
   };
   function findBestLocations(props) {
     let openLocations = props?.filter((location) => {
-      // console.log("Location", location);
       if (props.length > 0 && location.business_status == "OPERATIONAL") {
         return location;
       }
     });
-    // console.log("Open Locations", openLocations);
     let tempLocations = openLocations.sort((a, b) => b.rating - a.rating);
-    // console.log("Sorted Locations", tempLocations);
     let top10Locations = tempLocations.slice(0, 10);
-    // console.log("Top 10 Locations", top10Locations);
     setBestRatedLocations(top10Locations);
   }
-
-  // Console Logs:
-  // console.log("Locations", locations);
-  // console.log("Selected", selected);
-  // console.log("Best Locations", bestRatedLocations);
 
   return (
     <div className="map-page-style">

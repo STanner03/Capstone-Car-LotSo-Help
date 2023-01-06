@@ -30,54 +30,56 @@ function App() {
   const handleClose = () => setShowModal(false);
 
   return (
-    <div className="background" >
-      <Navbar
-        vehicles={vehicles}
-        setShowModal={setShowModal}
-        setModalForm={setModalForm}
-        setActiveVehicle={setActiveVehicle}
-        setModalFormTitle={setModalFormTitle}
-      />
-      <Modal show={showModal} onClose={handleClose} title={modalFormTitle}>
-        {modalForm}
-      </Modal>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <HomePage
-                vehicles={vehicles}
-                setVehicles={setVehicles}
-                activeVehicle={activeVehicle}
-              />
-            </PrivateRoute>
-          }
+    <div>
+      <div className="background">
+        <Navbar
+          vehicles={vehicles}
+          setShowModal={setShowModal}
+          setModalForm={setModalForm}
+          setActiveVehicle={setActiveVehicle}
+          setModalFormTitle={setModalFormTitle}
         />
-        <Route
-          path="/vehicle/*"
-          element={
-            <PrivateRoute>
-              <VehiclePage
-                setShowModal={setShowModal}
-                setModalForm={setModalForm}
-                activeVehicle={activeVehicle}
-                setModalFormTitle={setModalFormTitle}
-              />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/maps"
-          element={
-            <PrivateRoute>
-              <MapsPage />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
+        <Modal show={showModal} onClose={handleClose} title={modalFormTitle}>
+          {modalForm}
+        </Modal>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <HomePage
+                  vehicles={vehicles}
+                  setVehicles={setVehicles}
+                  activeVehicle={activeVehicle}
+                />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/vehicle/*"
+            element={
+              <PrivateRoute>
+                <VehiclePage
+                  setShowModal={setShowModal}
+                  setModalForm={setModalForm}
+                  activeVehicle={activeVehicle}
+                  setModalFormTitle={setModalFormTitle}
+                />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/maps"
+            element={
+              <PrivateRoute>
+                <MapsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );

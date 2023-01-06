@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-h2 {
+.map-page-style h2 {
   color: yellow;
   background-color: rgba(58, 5, 5, 0.9);
   border-radius: 50px;
