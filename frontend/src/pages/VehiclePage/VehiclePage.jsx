@@ -52,7 +52,7 @@ const VehiclePage = ({
       }
     };
     fetchVehicleFillups();
-  }, [activeVehicle, vehicleFillups.length]);
+  }, [token, activeVehicle, vehicleFillups.length]);
 
   useEffect(() => {
     const fetchVehicleMaintenance = async () => {
@@ -71,7 +71,7 @@ const VehiclePage = ({
       }
     };
     fetchVehicleMaintenance();
-  }, [activeVehicle, vehicleMaintenance.length]);
+  }, [token, activeVehicle, vehicleMaintenance.length]);
 
   // Functions:
 
